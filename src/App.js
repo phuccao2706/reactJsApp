@@ -1,17 +1,12 @@
 import React from "react";
-// import { StoreProvider } from "./stores/UserStore";
-import Random from "./random/Random";
-import AnotherRandom from "./random/AnotherRandom";
-import YetAnotherRandom from "./random/YetAnotherRandom";
-import { observer } from "mobx-react";
+import RouterComponent from "./router";
 
-const App = observer((props) => {
+const App = () => {
   return (
     <div className="App">
-      <Random />
-      {/* <YetAnotherRandom /> */}
+      <RouterComponent />
     </div>
   );
-});
+};
 
 export default App;

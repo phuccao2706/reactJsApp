@@ -1,5 +1,5 @@
-import { AnotherStore } from "./UserStore";
+import { GlobalState } from "./GlobalState";
 
 export const stores = {
-  anotherStore: new AnotherStore(),
+  globalState: new GlobalState(),
 };
