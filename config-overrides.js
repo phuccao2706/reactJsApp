@@ -1,53 +1,12 @@
-const { resolve } = require("path");
-const webpack = require("webpack");
 const {
   override,
+  addLessLoader,
+  fixBabelImports,
+  addWebpackAlias,
   addDecoratorsLegacy,
   addBabelPlugins,
-  fixBabelImports,
-  addLessLoader,
-  addWebpackAlias,
 } = require("customize-cra");
-const WebpackBar = require("webpackbar");
-const { isEqual } = require("underscore");
-
-const addPlugins = () => (config) => {
-  console.log("aa");
-  config.plugins.push(
-    new WebpackBar({
-      color: "#faad14",
-      name: "❖",
-    }),
-    require("autoprefixer"),
-    new webpack.ProvidePlugin({
-      "window.less": "less",
-    })
-  );
-
-  config.module.rules[2].oneOf.push({
-    test: /\.(ogg|mp3|wav|mpe?g)$/i,
-    loader: "file-loader",
-  });
-
-  config.module.rules = config.module.rules.filter(
-    (rule) => !isEqual(rule, { parser: { requireEnsure: false } })
-  );
-
-  Object.assign(config, {
-    devtool: process.env.SOURCE_MAP ? "source-map" : false,
-    optimization: {
-      ...config.optimization,
-      namedModules: true,
-      namedChunks: true,
-      splitChunks: {
-        ...config.optimization.splitChunks,
-        cacheGroups: { default: false },
-      },
-    },
-  });
-
-  return config;
-};
+const { resolve } = require("path");
 
 module.exports = override(
   addDecoratorsLegacy(),
@@ -64,19 +23,10 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      "primary-color": "#5D9C5A",
+      "primary-color": "#E566AD",
     },
   }),
   addWebpackAlias({
-    "@components": resolve(__dirname, "./src/components"),
-    "@constants": resolve(__dirname, "./src/constants"),
-    "@graphql": resolve(__dirname, "./src/graphql"),
-    "@misc": resolve(__dirname, "./src/misc"),
-    "@pages": resolve(__dirname, "src/pages"),
-    "@store": resolve(__dirname, "src/store"),
-    "@router": resolve(__dirname, "src/router"),
-    "@utils": resolve(__dirname, "src/utils"),
-    "@interfaces": resolve(__dirname, "./src/utils/interfaces"),
-  }),
-  addPlugins()
+    "@services": resolve(__dirname, "./src/services"),
+  })
 );

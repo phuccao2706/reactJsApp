@@ -1,21 +1,22 @@
-import React from "react";
-import { Form, Input, Button, Col } from "antd";
+import React, { useEffect } from "react";
+import { Form, Input, Button, Slider } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import "./index.less";
 
+import service from "@services";
+import services from "../../services";
+
 export default function Login() {
   const onFinish = ({ username, password }) => {
-    console.log(username, password);
+    services.call("post", "login", {
+      username,
+      password,
+    });
   };
 
   return (
     <div className="loginForm">
-      <Form
-        name="normal_login"
-        className="login-form"
-        initialValues={{ remember: true }}
-        onFinish={onFinish}
-      >
+      <Form name="normal_login" className="login-form" onFinish={onFinish}>
         <Form.Item
           name="username"
           rules={[{ required: true, message: "Please input your Username!" }]}
@@ -35,15 +36,6 @@ export default function Login() {
             placeholder="Password"
           />
         </Form.Item>
-        {/* <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-      </Form.Item> */}
 
         <Form.Item>
           <Button
