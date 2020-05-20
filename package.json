@@ -46,6 +46,7 @@
     "mobx-react": "^6.2.2",
     "mobx-react-lite": "^1.0.1",
     "module-alias": "^2.2.2",
+    "moment": "^2.25.3",
     "optimize-css-assets-webpack-plugin": "5.0.3",
     "pnp-webpack-plugin": "1.6.4",
     "postcss-flexbugs-fixes": "4.1.0",
@@ -59,6 +60,7 @@
     "react-app-rewired": "^2.1.6",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "react-infinite-scroll-component": "^5.0.4",
     "react-router-dom": "^5.2.0",
     "react-scripts": "^3.4.1",
     "resolve": "1.15.0",
@@ -72,6 +74,7 @@
     "webpack": "^4.42.0",
     "webpack-dev-server": "3.10.3",
     "webpack-manifest-plugin": "2.2.0",
+    "webpackbar": "^4.0.0",
     "workbox-webpack-plugin": "4.3.1"
   },
   "scripts": {

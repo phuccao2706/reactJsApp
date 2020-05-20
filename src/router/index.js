@@ -5,9 +5,11 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import { Skeleton } from "antd";
 
 import { unauthenticateRoutes, authenticateRoutes } from "./routes";
-import { GLOBAL_STATE } from "../appConstants";
+import LayoutDashboard from "../pages/dashboard/layoutDashboard";
+// import { GLOBAL_STATE } from "../appConstants";
 import { observer, inject } from "mobx-react";
 
 const RouterComponent = inject(({ stores }) => stores)(
@@ -18,20 +20,42 @@ const RouterComponent = inject(({ stores }) => stores)(
 
     return (
       <Router>
-        <Suspense fallback={<div>Loading Component...</div>}>
+        <Suspense fallback={<Skeleton />}>
           <Switch>
-            {unauthenticateRoutes.map(({ component, ...routeProps }, index) => (
-              <Route
-                key={index}
-                {...routeProps}
-                render={() => {
-                  const Component = React.lazy(() =>
-                    import(`../pages/${component}`)
-                  );
-                  return <Component />;
-                }}
-              />
-            ))}
+            {!isAuth &&
+              unauthenticateRoutes.map(
+                ({ component, ...routeProps }, index) => (
+                  <Route
+                    key={index}
+                    {...routeProps}
+                    render={() => {
+                      const Component = React.lazy(() =>
+                        import(`../pages/${component}`)
+                      );
+                      return <Component />;
+                    }}
+                  />
+                )
+              )}
+
+            {isAuth && (
+              <LayoutDashboard>
+                {authenticateRoutes.map(
+                  ({ component, ...routeProps }, index) => (
+                    <Route
+                      key={index}
+                      {...routeProps}
+                      render={() => {
+                        const Component = React.lazy(() =>
+                          import(`../pages/${component}`)
+                        );
+                        return <Component />;
+                      }}
+                    />
+                  )
+                )}
+              </LayoutDashboard>
+            )}
 
             {!isAuth && <Redirect to={"/login"} />}
 

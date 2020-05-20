@@ -7,6 +7,18 @@ const {
   addBabelPlugins,
 } = require("customize-cra");
 const { resolve } = require("path");
+const WebpackBar = require("webpackbar");
+
+const addPlugins = () => (config) => {
+  config.plugins.push(
+    new WebpackBar({
+      color: "#faad14",
+      name: "❖",
+    })
+  );
+
+  return config;
+};
 
 module.exports = override(
   addDecoratorsLegacy(),
@@ -23,10 +35,12 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      "primary-color": "#E566AD",
+      "primary-color": "#FEC9C9",
     },
   }),
   addWebpackAlias({
     "@services": resolve(__dirname, "./src/services"),
-  })
+    "@constants": resolve(__dirname, "./src/constants"),
+  }),
+  addPlugins()
 );

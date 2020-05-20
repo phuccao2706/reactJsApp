@@ -1,0 +1,53 @@
+.ideasContainer {
+  width: 60%;
+  margin: 0 auto;
+  .ideaComponent {
+    border: 1px solid #898989;
+    border-radius: 5px;
+    margin: 1rem 0;
+    > .ant-row {
+      > .ant-col-2 {
+        flex: 0 0 5%;
+        max-width: 5%;
+      }
+
+      > .ant-col-22 {
+        flex: 0 0 95%;
+        max-width: 95%;
+      }
+    }
+    .voteBtnsHolder {
+      background-color: #f8f9fa;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      > div {
+        display: flex;
+        flex-direction: column;
+        width: 60%;
+        margin: 0.5rem auto 0 auto;
+        > span.anticon {
+          border-radius: 2px;
+        }
+        > span.anticon:first-child:hover {
+          background-color: blue;
+        }
+        > span.anticon:last-child:hover {
+          background-color: red;
+        }
+        > span.point {
+          font-size: 12px;
+          text-align: center;
+        }
+      }
+    }
+    .pageHeader {
+      .ant-page-header-heading-sub-title {
+        display: flex;
+        font-size: 12px;
+      }
+    }
+    .ant-typography {
+      margin-right: 0.5rem;
+    }
+  }
+}
