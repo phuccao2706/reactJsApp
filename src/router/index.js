@@ -5,6 +5,8 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
+import IdeasComponent from "../pages/dashboard/ideas";
+import AboutComponent from "../pages/dashboard/about";
 import { Skeleton } from "antd";
 
 import { unauthenticateRoutes, authenticateRoutes } from "./routes";
@@ -40,7 +42,7 @@ const RouterComponent = inject(({ stores }) => stores)(
 
             {isAuth && (
               <LayoutDashboard>
-                {authenticateRoutes.map(
+                {/* {authenticateRoutes.map(
                   ({ component, ...routeProps }, index) => (
                     <Route
                       key={index}
@@ -53,7 +55,14 @@ const RouterComponent = inject(({ stores }) => stores)(
                       }}
                     />
                   )
-                )}
+                )} */}
+
+                <Route path="/ideas">
+                  <IdeasComponent />
+                </Route>
+                <Route path="/about">
+                  <AboutComponent />
+                </Route>
               </LayoutDashboard>
             )}
 

@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import App from "./App";
 import { stores } from "./stores";
 import { Provider } from "mobx-react";
+import "./index.less";
 // import "antd/dist/antd.css";
 
 ReactDOM.render(

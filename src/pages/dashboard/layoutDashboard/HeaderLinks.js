@@ -6,7 +6,7 @@ export default function HeaderLinks() {
     <div className="layoutDasboardHeaderLinks">
       <ul>
         <li>
-          <NavLink to="/">Về trang chủ</NavLink>
+          <NavLink to="/ideas">Về trang chủ</NavLink>
         </li>
 
         <li>

@@ -9,6 +9,11 @@ export const authenticateRoutes = [
     exact: true,
     component: "dashboard/about",
   },
+  {
+    path: "/idea/:_id",
+    exact: true,
+    component: "dashboard/ideaDetail",
+  },
 ];
 
 export const unauthenticateRoutes = [
