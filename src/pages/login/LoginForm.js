@@ -5,6 +5,7 @@ import { observer, inject } from "mobx-react";
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
 import { call, openNotification, setToken } from "@services";
+import { APP_CONSTANTS } from "../../constants";
 
 export default inject(({ stores }) => stores)(
   observer(
@@ -23,9 +24,10 @@ export default inject(({ stores }) => stores)(
           if (data && data.token) {
             const currentUser = { ...data };
             delete currentUser.token;
+            window.localStorage.setItem(APP_CONSTANTS.TOKEN, data.token);
             setState({ currentUser, isAuth: true });
             setToken(data.token);
-            history.push("/");
+            history.push("/ideas");
             return openNotification(
               { message: "Success", description: `Login as ${data.username}` },
               "bottomLeft",
@@ -64,7 +66,9 @@ export default inject(({ stores }) => stores)(
             >
               Log in
             </Button>
-            Or <Link to="/register">register now!</Link>
+            <span className="link">
+              Or <Link to="/register">register now!</Link>
+            </span>
           </Form.Item>
         </Form>
       );

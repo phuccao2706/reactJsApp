@@ -1,5 +1,6 @@
+import React from "react";
 import axios from "axios";
-import { notification } from "antd";
+import { notification, Avatar, Tooltip } from "antd";
 import { APP_CONSTANTS } from "../constants/";
 
 export const openNotification = ({ description, message }, placement, type) => {
@@ -11,7 +12,6 @@ export const openNotification = ({ description, message }, placement, type) => {
 };
 
 export const setToken = (token) => {
-  console.log(token);
   if (token) {
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     window.localStorage.setItem(APP_CONSTANTS.TOKEN, token);
@@ -24,6 +24,7 @@ export const setToken = (token) => {
 export const call = async (method, path, data) => {
   try {
     const token = window.localStorage.getItem(APP_CONSTANTS.TOKEN);
+    console.log(token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await axios[method](`http://localhost:4000/${path}`, data);
     return response.data;
@@ -37,4 +38,42 @@ export const call = async (method, path, data) => {
   }
 };
 
-export default { call, setToken, openNotification };
+export const AvatarComponent = ({
+  imageUrl,
+  firstname = " ",
+  lastname = " ",
+  size = "large",
+  backgroundColor = "#CCCCCC",
+  toolTip = false,
+}) => {
+  const avatarProps = {
+    style: {
+      backgroundColor,
+      verticalAlign: "middle",
+      userSelect: "none",
+    },
+    size,
+  };
+
+  return toolTip ? (
+    imageUrl !== null && imageUrl !== undefined ? (
+      <Avatar {...avatarProps} src={imageUrl} />
+    ) : (
+      <Avatar {...avatarProps}>
+        {`${firstname[0].toUpperCase()}${lastname[0].toUpperCase()}`}
+      </Avatar>
+    )
+  ) : (
+    <Tooltip placement="bottom" title={`${firstname} ${lastname}`}>
+      {imageUrl !== null && imageUrl !== undefined ? (
+        <Avatar {...avatarProps} src={imageUrl} />
+      ) : (
+        <Avatar {...avatarProps}>
+          {`${firstname[0].toUpperCase()}${lastname[0].toUpperCase()}`}
+        </Avatar>
+      )}
+    </Tooltip>
+  );
+};
+
+export default { call, setToken, openNotification, AvatarComponent };

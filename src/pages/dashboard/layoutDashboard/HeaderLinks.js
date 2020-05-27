@@ -1,7 +1,7 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, withRouter } from "react-router-dom";
 
-export default function HeaderLinks() {
+export default withRouter(function HeaderLinks() {
   return (
     <div className="layoutDasboardHeaderLinks">
       <ul>
@@ -15,4 +15,4 @@ export default function HeaderLinks() {
       </ul>
     </div>
   );
-}
+});

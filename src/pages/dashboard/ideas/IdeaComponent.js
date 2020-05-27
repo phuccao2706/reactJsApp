@@ -10,8 +10,8 @@ import { call } from "@services";
 import { APP_CONSTANTS } from "../../../constants";
 import moment from "moment";
 import { withRouter } from "react-router-dom";
-import { inject, observer } from "mobx-react";
-import * as _ from "lodash";
+import { inject } from "mobx-react";
+import _ from "lodash";
 
 const { Paragraph } = Typography;
 const { VOTE_TYPE } = APP_CONSTANTS;
@@ -59,18 +59,18 @@ class IdeaComponent extends Component {
       //for bookmarking
       [
         ..._.difference(
-          nextProps.globalStateRef.currentUser?.bookmarks.map(
+          nextProps.globalStateRef.currentUser.bookmarks?.map(
             (item) => item._id
           ),
-          this.props.globalStateRef.currentUser?.bookmarks.map(
+          this.props.globalStateRef.currentUser.bookmarks?.map(
             (item) => item._id
           )
         ),
         ..._.difference(
-          this.props.globalStateRef.currentUser?.bookmarks.map(
+          this.props.globalStateRef.currentUser.bookmarks?.map(
             (item) => item._id
           ),
-          nextProps.globalStateRef.currentUser?.bookmarks.map(
+          nextProps.globalStateRef.currentUser.bookmarks?.map(
             (item) => item._id
           )
         ),
@@ -92,12 +92,10 @@ class IdeaComponent extends Component {
     } = this.props;
 
     const bookmarkedYet = currentUser
-      ? currentUser.bookmarks.some(
+      ? currentUser.bookmarks?.some(
           (bookmark) => bookmark._id === ideaToShow._id
         )
       : false;
-
-    console.log("render");
 
     let isVoted = ideaToShow.upvotes.find(
       (item) => item._id === currentUser?._id

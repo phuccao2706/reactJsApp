@@ -39,36 +39,35 @@ const RouterComponent = inject(({ stores }) => stores)(
                   />
                 )
               )}
-
             {isAuth && (
-              <LayoutDashboard>
-                {/* {authenticateRoutes.map(
-                  ({ component, ...routeProps }, index) => (
-                    <Route
-                      key={index}
-                      {...routeProps}
-                      render={() => {
-                        const Component = React.lazy(() =>
-                          import(`../pages/${component}`)
-                        );
-                        return <Component />;
-                      }}
-                    />
-                  )
-                )} */}
-
-                <Route path="/ideas">
-                  <IdeasComponent />
-                </Route>
-                <Route path="/about">
-                  <AboutComponent />
-                </Route>
-              </LayoutDashboard>
+              <Route
+                exact
+                path={[
+                  ...authenticateRoutes.map((item) => item.path),
+                  "/ideas/:topicId",
+                ]}
+              >
+                <LayoutDashboard>
+                  {authenticateRoutes.map(
+                    ({ component, ...routeProps }, index) => (
+                      <Route
+                        key={index}
+                        {...routeProps}
+                        render={() => {
+                          const Component = React.lazy(() =>
+                            import(`../pages/${component}`)
+                          );
+                          return <Component />;
+                        }}
+                      />
+                    )
+                  )}
+                </LayoutDashboard>
+              </Route>
             )}
 
             {!isAuth && <Redirect to={"/login"} />}
-
-            <Redirect to={"/notfound"} />
+            <Redirect exact={true} to={"/notfound"} />
           </Switch>
         </Suspense>
       </Router>

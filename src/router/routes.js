@@ -1,18 +1,49 @@
+const routes = {
+  ABOUT: "/about",
+  IDEAS: "/ideas",
+  NOT_FOUND: "/notFound",
+  ADD_NEW_IDEA: "/addNewIdea",
+};
+
+// export const authenticateRoutes = [
+//   {
+//     path: "/about",
+//     exact: true,
+//     component: "dashboard/about",
+//   },
+//   {
+//     path: "/ideas",
+//     component: "dashboard/ideas",
+//   },
+//   {
+//     path: "/notfound",
+//     component: "dashboard/notfound",
+//   },
+//   {
+//     path: "/addNewIdea",
+//     component: "dashboard/addNewIdea",
+//   },
+// ];
+
 export const authenticateRoutes = [
   {
-    path: "/",
+    path: routes.ABOUT,
     exact: true,
-    component: "dashboard/ideas",
+    component: `dashboard${routes.ABOUT}`,
   },
   {
-    path: "/about",
-    exact: true,
-    component: "dashboard/about",
+    path: routes.IDEAS,
+    component: `dashboard${routes.IDEAS}`,
   },
   {
-    path: "/idea/:_id",
+    path: routes.NOT_FOUND,
     exact: true,
-    component: "dashboard/ideaDetail",
+    component: `dashboard${routes.NOT_FOUND}`,
+  },
+  {
+    path: routes.ADD_NEW_IDEA,
+    exact: true,
+    component: `dashboard${routes.ADD_NEW_IDEA}`,
   },
 ];
 

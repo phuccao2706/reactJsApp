@@ -6,7 +6,14 @@ import "./index.less";
 const Login = () => {
   return (
     <div className="loginForm">
-      <LoginForm />
+      <div>
+        <div>
+          <span>get inside</span>
+          <div className="arrow-up "></div>
+        </div>
+
+        <LoginForm />
+      </div>
     </div>
   );
 };

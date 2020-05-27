@@ -9,4 +9,10 @@ export const APP_CONSTANTS = {
     UP: "upvote",
     DOWN: "downvote",
   },
+  dualToneStyle: {
+    style: {
+      "--fa-primary-color": "#95b4cc",
+      "--fa-secondary-color": "#fec9c9",
+    },
+  },
 };
