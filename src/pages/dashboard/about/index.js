@@ -17,7 +17,11 @@ export default withRouter(function AboutComponent() {
           </Col>
 
           <Col span={2}>
-            <img className="img" src={require("./media/avatar.jpg")} />
+            <img
+              className="img"
+              alt="img"
+              src={require("./media/avatar.jpg")}
+            />
           </Col>
 
           <Col className="lastname" span={8}>

@@ -1,27 +1,28 @@
-import React, { useEffect } from "react";
+import React, { PureComponent } from "react";
 import { Row, Col } from "antd";
 import { withRouter } from "react-router-dom";
-import { observer, inject } from "mobx-react";
+import { inject } from "mobx-react";
 
 import HeaderLinks from "./HeaderLinks";
 import HeaderUser from "./HeaderUser";
-import { call } from "@services";
-import { GLOBAL_STATE } from "../../../constants/index";
 import "./index.less";
 
-export default withRouter(
-  inject(({ stores }) => stores)(function LayoutDasboard(props) {
-    const {
-      globalState: { setState },
-    } = props;
-    useEffect(() => {
-      call("get", "api/currentUser").then((data) => {
-        if (data) {
-          setState({ [GLOBAL_STATE.CURRENT_USER]: data });
-        }
-      });
-    }, [setState]);
+@withRouter
+@inject(({ stores }) => stores)
+class LayoutDasboard extends PureComponent {
+  componentDidMount() {
+    //This will not fire when we navigate the app.
+    console.log("layout did mount.");
+  }
 
+  componentWillUnmount() {
+    //This won't fire,
+    // because our "shared page layout" doesn't unmount.
+    console.log("layout will unmount");
+  }
+
+  render() {
+    console.log("render");
     return (
       <div className="layoutDasboard">
         <div className="layoutDasboardHeader">
@@ -34,8 +35,10 @@ export default withRouter(
             </Col>
           </Row>
         </div>
-        <div className="layoutDasboardBody">{props.children}</div>
+        <div className="layoutDasboardBody">{this.props.children}</div>
       </div>
     );
-  })
-);
+  }
+}
+
+export default LayoutDasboard;

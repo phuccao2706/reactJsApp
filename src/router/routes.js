@@ -1,29 +1,5 @@
-const routes = {
-  ABOUT: "/about",
-  IDEAS: "/ideas",
-  NOT_FOUND: "/notFound",
-  ADD_NEW_IDEA: "/addNewIdea",
-};
-
-// export const authenticateRoutes = [
-//   {
-//     path: "/about",
-//     exact: true,
-//     component: "dashboard/about",
-//   },
-//   {
-//     path: "/ideas",
-//     component: "dashboard/ideas",
-//   },
-//   {
-//     path: "/notfound",
-//     component: "dashboard/notfound",
-//   },
-//   {
-//     path: "/addNewIdea",
-//     component: "dashboard/addNewIdea",
-//   },
-// ];
+import { APP_CONSTANTS } from "../constants";
+const { routes } = APP_CONSTANTS;
 
 export const authenticateRoutes = [
   {

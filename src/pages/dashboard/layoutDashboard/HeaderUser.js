@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer, inject } from "mobx-react";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import { Popover } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { setToken, AvatarComponent } from "../../../services";
@@ -40,9 +40,11 @@ export default withRouter(
             <div className="addNewIdea">
               <i
                 {...APP_CONSTANTS.dualToneStyle}
-                class="fad fa-plus-square"
+                className="fad fa-plus-square"
               ></i>{" "}
-              <span>Add new post</span>
+              <span>
+                <Link to={APP_CONSTANTS.routes.ADD_NEW_IDEA}>Add new post</Link>
+              </span>
             </div>
             <Popover
               placement="bottomRight"

@@ -24,7 +24,6 @@ export const setToken = (token) => {
 export const call = async (method, path, data) => {
   try {
     const token = window.localStorage.getItem(APP_CONSTANTS.TOKEN);
-    console.log(token);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await axios[method](`http://localhost:4000/${path}`, data);
     return response.data;

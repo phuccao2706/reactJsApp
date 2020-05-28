@@ -16,7 +16,6 @@ export default inject(({ stores }) => stores)(
       } = props;
 
       const onFinish = ({ username, password }) => {
-        console.log(username, password);
         call("post", "login", {
           username,
           password,

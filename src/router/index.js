@@ -5,14 +5,12 @@ import {
   Route,
   Redirect,
 } from "react-router-dom";
-import IdeasComponent from "../pages/dashboard/ideas";
-import AboutComponent from "../pages/dashboard/about";
 import { Skeleton } from "antd";
-
-import { unauthenticateRoutes, authenticateRoutes } from "./routes";
-import LayoutDashboard from "../pages/dashboard/layoutDashboard";
-// import { GLOBAL_STATE } from "../appConstants";
 import { observer, inject } from "mobx-react";
+import { unauthenticateRoutes, authenticateRoutes } from "./routes";
+
+import LayoutDashboard from "../pages/dashboard/layoutDashboard";
+import AuthWrapper from "../pages/dashboard/authWrapper";
 
 const RouterComponent = inject(({ stores }) => stores)(
   observer((props) => {
@@ -48,20 +46,24 @@ const RouterComponent = inject(({ stores }) => stores)(
                 ]}
               >
                 <LayoutDashboard>
-                  {authenticateRoutes.map(
-                    ({ component, ...routeProps }, index) => (
-                      <Route
-                        key={index}
-                        {...routeProps}
-                        render={() => {
-                          const Component = React.lazy(() =>
-                            import(`../pages/${component}`)
-                          );
-                          return <Component />;
-                        }}
-                      />
-                    )
-                  )}
+                  <AuthWrapper>
+                    <Suspense fallback={<Skeleton />}>
+                      {authenticateRoutes.map(
+                        ({ component, ...routeProps }, index) => (
+                          <Route
+                            key={index}
+                            {...routeProps}
+                            render={() => {
+                              const Component = React.lazy(() =>
+                                import(`../pages/${component}`)
+                              );
+                              return <Component />;
+                            }}
+                          />
+                        )
+                      )}
+                    </Suspense>
+                  </AuthWrapper>
                 </LayoutDashboard>
               </Route>
             )}

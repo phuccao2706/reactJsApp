@@ -15,7 +15,7 @@ export default withRouter(
     observer(function IdeasComponent(props) {
       const [hasMore, setHasMore] = useState(true);
 
-      const { path, url } = useRouteMatch();
+      const { path } = useRouteMatch();
       let getIdeas = async (page) => {
         const {
           globalState: { ideasToShow },

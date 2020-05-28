@@ -15,4 +15,10 @@ export const APP_CONSTANTS = {
       "--fa-secondary-color": "#fec9c9",
     },
   },
+  routes: {
+    ABOUT: "/about",
+    IDEAS: "/ideas",
+    NOT_FOUND: "/notFound",
+    ADD_NEW_IDEA: "/addNewIdea",
+  },
 };

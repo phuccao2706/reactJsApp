@@ -1,16 +1,17 @@
 import React from "react";
-import { NavLink, withRouter } from "react-router-dom";
+import { NavLink, Link, withRouter } from "react-router-dom";
+import { APP_CONSTANTS } from "../../../constants";
 
 export default withRouter(function HeaderLinks() {
   return (
     <div className="layoutDasboardHeaderLinks">
       <ul>
         <li>
-          <NavLink to="/ideas">Về trang chủ</NavLink>
+          <Link to={APP_CONSTANTS.routes.IDEAS}>Về trang chủ</Link>
         </li>
 
         <li>
-          <NavLink to="/about">Về trang about</NavLink>
+          <Link to={APP_CONSTANTS.routes.ABOUT}>Về trang about</Link>
         </li>
       </ul>
     </div>
