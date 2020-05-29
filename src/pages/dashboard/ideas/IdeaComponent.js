@@ -14,7 +14,7 @@ import { inject } from "mobx-react";
 import _ from "lodash";
 
 const { Paragraph } = Typography;
-const { VOTE_TYPE } = APP_CONSTANTS;
+const { VOTE_TYPE, BE_URI } = APP_CONSTANTS;
 
 @withRouter
 @inject(({ stores }) => stores)
@@ -149,15 +149,26 @@ class IdeaComponent extends Component {
                 className="pageHeader"
               >
                 <Row>
-                  <div style={{ flex: 1 }}>
+                  {/* <Col span={18}>
                     <Paragraph>{ideaToShow.description}</Paragraph>
-                  </div>
-                  <div>
+                  </Col>
+
+                  <Col span={6}>
                     <img
-                      src="https://gw.alipayobjects.com/zos/antfincdn/K%24NnlsB%26hz/pageHeader.svg"
+                      src={`${BE_URI}${ideaToShow.imageUrl}`}
                       alt="content"
                       width="100%"
                     />
+                  </Col> */}
+                  <div style={{ marginBottom: "0.5rem" }}>
+                    <img
+                      src={`${BE_URI}${ideaToShow.imageUrl}`}
+                      alt="content"
+                      width="100%"
+                    />
+                  </div>
+                  <div>
+                    <Paragraph>{ideaToShow.description}</Paragraph>
                   </div>
                 </Row>
 

@@ -11,7 +11,8 @@ import {
 } from "@ant-design/icons";
 import "./index.less";
 
-import { call, openNotification, setToken } from "@services";
+import { call, openNotification } from "@services";
+import { APP_CONSTANTS } from "../../constants";
 
 export default withRouter(
   inject(({ stores }) => stores)(
@@ -27,8 +28,8 @@ export default withRouter(
           if (data && data.token) {
             const currentUser = { ...data };
             delete currentUser.token;
+            window.localStorage.setItem(APP_CONSTANTS.TOKEN, data.token);
             setState({ currentUser, isAuth: true });
-            setToken(data.token);
             history.push("/ideas");
             return openNotification(
               { message: "Success", description: `Welcome ${data.username}` },
@@ -60,7 +61,7 @@ export default withRouter(
               colon={false}
             >
               <Form.Item
-                label="Username"
+                // label="Username"
                 name="username"
                 rules={[
                   { required: true, message: "Please input your Username!" },
@@ -72,7 +73,7 @@ export default withRouter(
                 />
               </Form.Item>
               <Form.Item
-                label="Password"
+                // label="Password"
                 name="password"
                 rules={[
                   { required: true, message: "Please input your Password!" },
@@ -85,10 +86,10 @@ export default withRouter(
                 />
               </Form.Item>
               <Form.Item
-                label="Fullname"
+                // label="Fullname"
                 name="firstname"
                 rules={[
-                  { required: true, message: "Please input your Fullname!" },
+                  { required: true, message: "Please input your Firstname!" },
                 ]}
               >
                 <Input
@@ -99,7 +100,21 @@ export default withRouter(
                 />
               </Form.Item>
               <Form.Item
-                label="Phone number"
+                // label="Lastname"
+                name="lastname"
+                rules={[
+                  { required: true, message: "Please input your Lastname!" },
+                ]}
+              >
+                <Input
+                  prefix={
+                    <FieldStringOutlined className="site-form-item-icon" />
+                  }
+                  placeholder="Firstname"
+                />
+              </Form.Item>
+              <Form.Item
+                // label="Phone number"
                 name="phoneNumber"
                 rules={[
                   {
@@ -114,7 +129,7 @@ export default withRouter(
                 />
               </Form.Item>
               <Form.Item
-                label="Email"
+                // label="Email"
                 name="email"
                 rules={[
                   { required: true, message: "Please input your Email!" },

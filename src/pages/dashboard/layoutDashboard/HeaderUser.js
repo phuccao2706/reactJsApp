@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { withRouter, Link } from "react-router-dom";
 import { Popover } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
-import { setToken, AvatarComponent } from "../../../services";
+import { AvatarComponent } from "../../../services";
 import { APP_CONSTANTS } from "../../../constants";
 export default withRouter(
   inject(({ stores }) => stores)(
@@ -17,7 +17,6 @@ export default withRouter(
         window.localStorage.clear();
         props.globalState.setState({ isAuth: false, currentUser: null });
         props.history.push("/");
-        setToken(false);
       };
 
       const handleVisibleChange = (visible) => {
@@ -26,10 +25,12 @@ export default withRouter(
 
       const popoverContent = () => (
         <div className="popoverContent">
-          <span>My Profile</span>
+          <span onClick={() => props.history.push("/userDetail/aaaaa")}>
+            <i className="fas fa-home"></i> My Profile
+          </span>
 
           <span onClick={handleLogout} className="loggout">
-            Logout
+            <i className="fas fa-portal-exit"></i> Logout
           </span>
         </div>
       );
@@ -37,14 +38,19 @@ export default withRouter(
       return (
         currentUser && (
           <>
-            <div className="addNewIdea">
+            <div
+              className="addNewIdea"
+              onClick={() =>
+                props.history.push(APP_CONSTANTS.routes.ADD_NEW_IDEA)
+              }
+            >
               <i
                 {...APP_CONSTANTS.dualToneStyle}
                 className="fad fa-plus-square"
               ></i>{" "}
-              <span>
-                <Link to={APP_CONSTANTS.routes.ADD_NEW_IDEA}>Add new post</Link>
-              </span>
+              {/* <Link to={APP_CONSTANTS.routes.ADD_NEW_IDEA}> */}
+              <span>new idea</span>
+              {/* </Link> */}
             </div>
             <Popover
               placement="bottomRight"

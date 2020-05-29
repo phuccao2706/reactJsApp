@@ -25,7 +25,7 @@ export default inject(({ stores }) => stores)(
             delete currentUser.token;
             window.localStorage.setItem(APP_CONSTANTS.TOKEN, data.token);
             setState({ currentUser, isAuth: true });
-            setToken(data.token);
+            // setToken(data.token);
             history.push("/ideas");
             return openNotification(
               { message: "Success", description: `Login as ${data.username}` },

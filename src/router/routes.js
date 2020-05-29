@@ -21,6 +21,11 @@ export const authenticateRoutes = [
     exact: true,
     component: `dashboard${routes.ADD_NEW_IDEA}`,
   },
+  {
+    path: `${routes.USER_DETAIL}/:username`,
+    exact: true,
+    component: `dashboard${routes.USER_DETAIL}`,
+  },
 ];
 
 export const unauthenticateRoutes = [

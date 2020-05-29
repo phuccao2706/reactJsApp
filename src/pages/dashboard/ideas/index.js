@@ -5,7 +5,6 @@ import { Skeleton } from "antd";
 import IdeaComponent from "./IdeaComponent";
 import IdeaDetailComponent from "../ideaDetail";
 import InfiniteScroll from "react-infinite-scroll-component";
-import NewPostComponen from "../newPost";
 
 import { call } from "../../../services";
 import "./index.less";
@@ -67,8 +66,6 @@ export default withRouter(
                 </p>
               }
             >
-              <NewPostComponen />
-
               {props.globalState.ideasToShow.map((idea, index) => (
                 <IdeaComponent
                   key={index}

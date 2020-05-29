@@ -30,14 +30,16 @@ class UploadImgComponent extends React.Component {
     return isJpgOrPng && isLt2M;
   }
 
-  handleChange = ({ file: { status, originFileObj } }) => {
-    if (status === "uploading") {
+  handleChange = ({ file }) => {
+    if (file.status === "uploading") {
       this.setState({ loading: true });
       return;
     }
-    if (status === "done") {
-      console.log(originFileObj);
-      this.getBase64(originFileObj, (imageUrl) =>
+    if (file.status === "done") {
+      let imageUrl = [...file.response.split("/")];
+      imageUrl.shift();
+      this.props.getImgUrl(imageUrl.join("/"));
+      this.getBase64(file.originFileObj, (imageUrl) =>
         this.setState({
           imageUrl,
           loading: false,
@@ -50,7 +52,7 @@ class UploadImgComponent extends React.Component {
     const uploadButton = (
       <div>
         {this.state.loading ? <LoadingOutlined /> : <PlusOutlined />}
-        <div className="ant-upload-text">Upload</div>
+        <div className="ant-upload-text">select photo</div>
       </div>
     );
     const { imageUrl } = this.state;

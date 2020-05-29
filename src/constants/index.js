@@ -4,6 +4,7 @@ export const GLOBAL_STATE = {
 };
 
 export const APP_CONSTANTS = {
+  BE_URI: "http://localhost:4000/",
   TOKEN: "TOKEN",
   VOTE_TYPE: {
     UP: "upvote",
@@ -20,5 +21,6 @@ export const APP_CONSTANTS = {
     IDEAS: "/ideas",
     NOT_FOUND: "/notFound",
     ADD_NEW_IDEA: "/addNewIdea",
+    USER_DETAIL: "/userDetail",
   },
 };

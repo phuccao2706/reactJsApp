@@ -11,21 +11,14 @@ export const openNotification = ({ description, message }, placement, type) => {
   });
 };
 
-export const setToken = (token) => {
-  if (token) {
-    axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    window.localStorage.setItem(APP_CONSTANTS.TOKEN, token);
-  } else {
-    delete axios.defaults.headers.common["Authorization"];
-    window.localStorage.removeItem(APP_CONSTANTS.TOKEN);
-  }
-};
-
 export const call = async (method, path, data) => {
   try {
     const token = window.localStorage.getItem(APP_CONSTANTS.TOKEN);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
-    const response = await axios[method](`http://localhost:4000/${path}`, data);
+    const response = await axios[method](
+      `${APP_CONSTANTS.BE_URI}${path}`,
+      data
+    );
     return response.data;
   } catch ({ response }) {
     openNotification(
@@ -75,4 +68,4 @@ export const AvatarComponent = ({
   );
 };
 
-export default { call, setToken, openNotification, AvatarComponent };
+export default { call, openNotification, AvatarComponent };

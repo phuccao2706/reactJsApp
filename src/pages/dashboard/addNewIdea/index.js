@@ -17,6 +17,7 @@ class AddNewIdea extends PureComponent {
     this.state = {
       ideaValue: "",
       descriptionValue: "",
+      imageUrl: "",
       // for tags
       hashtagsValue: [],
       tagsInputVisible: false,
@@ -28,15 +29,15 @@ class AddNewIdea extends PureComponent {
 
   handleSubmitIdea = async () => {
     const {
-      state: { ideaValue, descriptionValue, hashtagsValue },
+      state: { ideaValue, descriptionValue, hashtagsValue, imageUrl },
       props: { history },
     } = this;
-    console.log(hashtagsValue.join("-"));
 
     await call("post", "api/idea", {
       idea: ideaValue,
       description: descriptionValue,
       hashtags: hashtagsValue.join("-"),
+      imageUrl,
     }).then((data) => {
       if (data && data._id) {
         history.push("/ideas");
@@ -66,10 +67,10 @@ class AddNewIdea extends PureComponent {
     if (tagsInputValue && hashtagsValue.indexOf(tagsInputValue) === -1) {
       hashtagsValue = [...hashtagsValue, tagsInputValue];
     }
-    console.log(hashtagsValue);
+
     this.setState({
       hashtagsValue,
-      tagsInputVisible: false,
+      // tagsInputVisible: false,
       tagsInputValue: "",
     });
   };
@@ -110,19 +111,30 @@ class AddNewIdea extends PureComponent {
 
     return (
       <div className="addNewIdeaContainer">
+        <div className="title">
+          <span>got any idea?</span>
+          <div className="arrow-up "></div>
+        </div>
         <Input
           onChange={({ target: { value } }) =>
             this.setState({ ideaValue: value })
           }
-          placeholder="Idea"
+          placeholder="idea"
         />
-        <TextArea
-          onChange={({ target: { value } }) =>
-            this.setState({ descriptionValue: value })
-          }
-          placeholder="Description"
-          rows={4}
-        />
+
+        <div className="row2">
+          <TextArea
+            onChange={({ target: { value } }) =>
+              this.setState({ descriptionValue: value })
+            }
+            placeholder="description"
+            rows={4}
+          />
+          <UploadImgComponent
+            getImgUrl={(imageUrl) => this.setState({ imageUrl })}
+          />
+        </div>
+
         <div className="hashtagsHolder">
           {hashtagsValue.map((tag, index) => {
             if (editTagsInputIndex === index) {
@@ -147,6 +159,7 @@ class AddNewIdea extends PureComponent {
                 className="edit-tag"
                 color="blue"
                 key={index}
+                closable
                 onClose={() => this.handleClose(tag)}
               >
                 <span
@@ -182,20 +195,23 @@ class AddNewIdea extends PureComponent {
               className="tag-input"
               value={tagsInputValue}
               onChange={this.handleInputChange}
-              onBlur={this.handleInputConfirm}
+              onBlur={() =>
+                this.setState({
+                  tagsInputValue: "",
+                  tagsInputVisible: false,
+                })
+              }
               onPressEnter={this.handleInputConfirm}
             />
           )}
           {!tagsInputVisible && (
             <Tag className="site-tag-plus" onClick={this.showInput}>
-              <PlusOutlined /> New Tag
+              <PlusOutlined /> add tag
             </Tag>
           )}
         </div>
 
-        <UploadImgComponent />
-
-        <div>
+        <div className="functionalBtns">
           <Button className="cancelBtn">Default</Button>
           <Button
             onClick={this.handleSubmitIdea}
