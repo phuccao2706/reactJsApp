@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { PageHeader, Typography, Row, Tag, Col } from "antd";
+import { PageHeader, Typography, Row, Tag, Col, Popover } from "antd";
 import {
   CaretUpOutlined,
   CaretDownOutlined,
@@ -59,18 +59,18 @@ class IdeaComponent extends Component {
       //for bookmarking
       [
         ..._.difference(
-          nextProps.globalStateRef.currentUser.bookmarks?.map(
+          nextProps.globalStateRef.currentUser?.bookmarks?.map(
             (item) => item._id
           ),
-          this.props.globalStateRef.currentUser.bookmarks?.map(
+          this.props.globalStateRef.currentUser?.bookmarks?.map(
             (item) => item._id
           )
         ),
         ..._.difference(
-          this.props.globalStateRef.currentUser.bookmarks?.map(
+          this.props.globalStateRef.currentUser?.bookmarks?.map(
             (item) => item._id
           ),
-          nextProps.globalStateRef.currentUser.bookmarks?.map(
+          nextProps.globalStateRef.currentUser?.bookmarks?.map(
             (item) => item._id
           )
         ),
@@ -142,29 +142,42 @@ class IdeaComponent extends Component {
 
                     <div className="subTitle">
                       <span>{ideaToShow.createdBy.username}</span> •{" "}
-                      <span>{moment(ideaToShow.createdAt).fromNow()}</span>
+                      <Popover
+                        content={
+                          <span
+                            style={{
+                              padding: "0.25rem",
+                              backgroundColor: "#dbdbdb",
+                              borderRadius: "3px",
+                              color: "rgba(0, 0, 0, 0.65)",
+                            }}
+                          >
+                            {moment(ideaToShow.createdAt).format(
+                              "MMMM Do YYYY, h:mm:ss a"
+                            )}
+                          </span>
+                        }
+                        placement={"right"}
+                      >
+                        <span>{moment(ideaToShow.createdAt).fromNow()}</span>
+                      </Popover>
                     </div>
                   </div>
                 }
                 className="pageHeader"
               >
                 <Row>
-                  {/* <Col span={18}>
-                    <Paragraph>{ideaToShow.description}</Paragraph>
-                  </Col>
-
-                  <Col span={6}>
+                  <div
+                    style={{
+                      marginBottom: "0.5rem",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
                     <img
+                      className="ideaImg"
                       src={`${BE_URI}${ideaToShow.imageUrl}`}
                       alt="content"
-                      width="100%"
-                    />
-                  </Col> */}
-                  <div style={{ marginBottom: "0.5rem" }}>
-                    <img
-                      src={`${BE_URI}${ideaToShow.imageUrl}`}
-                      alt="content"
-                      width="100%"
                     />
                   </div>
                   <div>

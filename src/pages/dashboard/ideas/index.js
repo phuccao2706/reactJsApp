@@ -14,7 +14,6 @@ export default withRouter(
     observer(function IdeasComponent(props) {
       const [hasMore, setHasMore] = useState(true);
 
-      const { path } = useRouteMatch();
       let getIdeas = async (page) => {
         const {
           globalState: { ideasToShow },
@@ -28,7 +27,8 @@ export default withRouter(
         const retrievedIdeas = await call("get", `api/idea/?page=${page}`);
         console.log(retrievedIdeas);
         props.globalState.setState({
-          ideasToShow: [...ideasToShow, ...retrievedIdeas],
+          // ideasToShow: [...ideasToShow, ...retrievedIdeas],
+          ideasToShow: retrievedIdeas,
         });
         // setIdeas((ideas) => [...ideas, ...retrievedIdeas]);
       };
@@ -71,16 +71,15 @@ export default withRouter(
                   key={index}
                   ideaToShow={idea}
                   globalStateRef={{ ...props.globalState }}
-                  setGlobalState={setGlobalState}
                 />
               ))}
             </InfiniteScroll>
 
-            <Switch>
+            {/* <Switch>
               <Route exact={true} path={`${path}/:topicId`}>
                 <IdeaDetailComponent />
               </Route>
-            </Switch>
+            </Switch> */}
           </div>
         )
       );

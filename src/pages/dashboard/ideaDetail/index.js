@@ -33,12 +33,18 @@ class IdeaDetailComponent extends Component {
   };
 
   handleComment = async (topicId, comment) => {
+    const {
+      props: { fromUserDetail, getUser },
+    } = this;
     const retrievedData = await call("post", `api/comment/idea/${topicId}`, {
       comment,
     });
     if (retrievedData) {
       this.setState({ idea: retrievedData });
       this.props.globalState.handleIdeaChange(retrievedData);
+      if (fromUserDetail) {
+        getUser();
+      }
     }
   };
 
@@ -66,10 +72,10 @@ class IdeaDetailComponent extends Component {
     return (
       <div>
         <Modal
-          title="Basic Modal"
           visible={true}
           className="ideaDetailModal"
-          onCancel={() => this.props.history.push("/ideas")}
+          onCancel={() => this.props.history.goBack()}
+          maskStyle={{ backgroundColor: "rgba(0,0,0,0.9)" }}
         >
           <div>
             {this.state.loading ? (

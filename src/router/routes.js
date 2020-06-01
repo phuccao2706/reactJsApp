@@ -23,7 +23,6 @@ export const authenticateRoutes = [
   },
   {
     path: `${routes.USER_DETAIL}/:username`,
-    exact: true,
     component: `dashboard${routes.USER_DETAIL}`,
   },
 ];

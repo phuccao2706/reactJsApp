@@ -1,6 +1,5 @@
-import React from "react";
 import axios from "axios";
-import { notification, Avatar, Tooltip } from "antd";
+import { notification } from "antd";
 import { APP_CONSTANTS } from "../constants/";
 
 export const openNotification = ({ description, message }, placement, type) => {
@@ -30,42 +29,4 @@ export const call = async (method, path, data) => {
   }
 };
 
-export const AvatarComponent = ({
-  imageUrl,
-  firstname = " ",
-  lastname = " ",
-  size = "large",
-  backgroundColor = "#CCCCCC",
-  toolTip = false,
-}) => {
-  const avatarProps = {
-    style: {
-      backgroundColor,
-      verticalAlign: "middle",
-      userSelect: "none",
-    },
-    size,
-  };
-
-  return toolTip ? (
-    imageUrl !== null && imageUrl !== undefined ? (
-      <Avatar {...avatarProps} src={imageUrl} />
-    ) : (
-      <Avatar {...avatarProps}>
-        {`${firstname[0].toUpperCase()}${lastname[0].toUpperCase()}`}
-      </Avatar>
-    )
-  ) : (
-    <Tooltip placement="bottom" title={`${firstname} ${lastname}`}>
-      {imageUrl !== null && imageUrl !== undefined ? (
-        <Avatar {...avatarProps} src={imageUrl} />
-      ) : (
-        <Avatar {...avatarProps}>
-          {`${firstname[0].toUpperCase()}${lastname[0].toUpperCase()}`}
-        </Avatar>
-      )}
-    </Tooltip>
-  );
-};
-
-export default { call, openNotification, AvatarComponent };
+export default { call, openNotification };

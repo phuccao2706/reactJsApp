@@ -3,7 +3,7 @@ import { observer, inject } from "mobx-react";
 import { withRouter, Link } from "react-router-dom";
 import { Popover } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
-import { AvatarComponent } from "../../../services";
+import AvatarComponent from "../../components/AvatarComponent";
 import { APP_CONSTANTS } from "../../../constants";
 export default withRouter(
   inject(({ stores }) => stores)(
@@ -25,7 +25,14 @@ export default withRouter(
 
       const popoverContent = () => (
         <div className="popoverContent">
-          <span onClick={() => props.history.push("/userDetail/aaaaa")}>
+          <span
+            onClick={() => {
+              props.history.push(
+                `/userDetail/${props.globalState.currentUser.username}`
+              );
+              setPopoverVisible(false);
+            }}
+          >
             <i className="fas fa-home"></i> My Profile
           </span>
 
@@ -48,9 +55,7 @@ export default withRouter(
                 {...APP_CONSTANTS.dualToneStyle}
                 className="fad fa-plus-square"
               ></i>{" "}
-              {/* <Link to={APP_CONSTANTS.routes.ADD_NEW_IDEA}> */}
               <span>new idea</span>
-              {/* </Link> */}
             </div>
             <Popover
               placement="bottomRight"

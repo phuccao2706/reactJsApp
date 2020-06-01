@@ -36,7 +36,7 @@ class AddNewIdea extends PureComponent {
     await call("post", "api/idea", {
       idea: ideaValue,
       description: descriptionValue,
-      hashtags: hashtagsValue.join("-"),
+      hashtags: hashtagsValue,
       imageUrl,
     }).then((data) => {
       if (data && data._id) {

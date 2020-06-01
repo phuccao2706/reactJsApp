@@ -1,7 +1,9 @@
 @import (inline) "./pages/dashboard/about/googlefonts.css";
 
 .ideaDetailModal {
-  width: 90% !important;
+  width: 60% !important;
+  top: 0;
+  padding-bottom: 0;
   .ideaComponent {
     // border: 1px solid #898989;
     border-radius: 5px;
@@ -72,13 +74,27 @@
       }
     }
     .pageHeader {
+      img.ideaImg {
+        max-width: 100%;
+      }
+      .ant-page-header-content {
+        > .ant-row {
+          flex-direction: column;
+        }
+      }
       .subTitle {
         color: rgba(0, 0, 0, 0.45);
         font-size: 12px;
         font-weight: normal;
         line-height: 1;
-        span.ant-avatar {
-          margin-right: 6px;
+
+        > span {
+          cursor: pointer;
+          user-select: none;
+        }
+
+        > span:hover {
+          text-decoration: underline;
         }
       }
       .ant-page-header-heading-sub-title {
