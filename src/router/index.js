@@ -75,12 +75,14 @@ const RouterComponent = inject(({ stores }) => stores)(
                     >
                       <DetailUser />
                     </Route>
+
                     {/* <Route path={`${APP_CONSTANTS.routes.IDEAS}/:topicId`}>
                       <IdeaDetailComponent />
                     </Route> */}
-                    {/* <Route>
+
+                    <Route>
                       <NotFoundComponent />
-                    </Route> */}
+                    </Route>
                   </Switch>
                 </AuthWrapper>
               </LayoutDashboard>

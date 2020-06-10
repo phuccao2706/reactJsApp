@@ -26,6 +26,7 @@ export default withRouter(
 
       useEffect(() => {
         if (!props.globalState[GLOBAL_STATE.initDashboardFromCreate]) {
+          console.log(props.globalState.ideasToShow);
           getIdeas();
         } else {
           setLoadingState(false);

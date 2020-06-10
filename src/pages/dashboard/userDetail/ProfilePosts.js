@@ -29,11 +29,6 @@ class ProfilePosts extends Component {
     const {
       props: { userDetail, type },
     } = this;
-
-    // const type = !!!params.type
-    //   ? APP_CONSTANTS.ideaPreviewParamsType.ideas
-    //   : APP_CONSTANTS.ideaPreviewParamsType.bookmarks;
-    console.log(this.props);
     this.getIdeasToShow(userDetail.username, type);
   }
 

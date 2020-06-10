@@ -7,6 +7,7 @@ import Layout from "./Layout";
 import { call } from "../../../services";
 import "./index.less";
 import { APP_CONSTANTS } from "../../../constants";
+import IdeaDetailComponent from "../ideaDetail";
 
 @withRouter
 @inject(({ stores }) => stores)

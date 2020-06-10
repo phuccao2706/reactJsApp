@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Typography, Popover, Modal } from "antd";
 import { CaretUpOutlined, CaretDownOutlined } from "@ant-design/icons";
 import moment from "moment";
-import { APP_CONSTANTS } from "../../../constants";
+import { APP_CONSTANTS, GLOBAL_STATE } from "../../../constants";
 import { withRouter } from "react-router-dom";
 import { inject } from "mobx-react";
 
@@ -45,13 +45,15 @@ class PreviewIdeaComponent extends Component {
 
   jumpToItem = (event, itemId) => {
     const {
-      props: { history },
+      props: { history, globalState },
     } = this;
 
     if (skipClasname.includes([...event.target.classList].shift())) {
       return;
     }
-
+    globalState.setState({
+      [GLOBAL_STATE.initDashboardFromCreate]: true,
+    });
     history.push(`${APP_CONSTANTS.routes.IDEAS}/${itemId}`);
   };
 

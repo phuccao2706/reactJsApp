@@ -15,7 +15,6 @@ export class GlobalState {
   visibleModalDelete = false;
 
   setState = (object) => {
-    console.log(object);
     Object.keys(object).map((key) => {
       this[key] = object[key];
       return key;
