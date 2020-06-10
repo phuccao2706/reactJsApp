@@ -2,11 +2,11 @@ import { APP_CONSTANTS } from "../constants";
 const { routes } = APP_CONSTANTS;
 
 export const authenticateRoutes = [
-  {
-    path: routes.ABOUT,
-    exact: true,
-    component: `dashboard${routes.ABOUT}`,
-  },
+  // {
+  //   path: routes.ABOUT,
+  //   exact: true,
+  //   component: `dashboard${routes.ABOUT}`,
+  // },
   {
     path: routes.IDEAS,
     component: `dashboard${routes.IDEAS}`,

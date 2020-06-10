@@ -1,0 +1,170 @@
+@import (inline) "../googlefonts.css";
+.aboutContainer {
+  width: 80%;
+  margin: 0 auto;
+  border: 1px solid #898989;
+  padding: 1rem;
+
+  background-color: #95b4cc;
+  background-image: linear-gradient(200deg, #95b4cc 0%, #fec9c9 50%);
+  font-family: "Open Sans", sans-serif;
+  .innerContainer {
+    background-color: #f8f9fa;
+    padding: 3rem 0;
+    .header.ant-row {
+      .img {
+        width: 100%;
+        border-radius: 50%;
+      }
+      .fistname,
+      .lastname {
+        display: flex;
+        align-items: center;
+        font-size: 28px;
+      }
+
+      .fistname {
+        justify-content: flex-end;
+        font-weight: 600;
+        padding-right: 1rem;
+      }
+
+      .lastname {
+        padding-left: 1rem;
+        font-weight: 300;
+      }
+    }
+
+    .icon.ant-row {
+      font-size: 55px;
+      text-align: center;
+      margin: 0.5rem 0;
+    }
+
+    .coloredIcon {
+      color: #95b4cc;
+    }
+
+    span.bold {
+      font-weight: 600;
+      line-height: 22px;
+    }
+
+    .ant-row {
+      .ant-col.leftSide {
+        text-align: right;
+      }
+
+      .ant-col.leftSide,
+      .ant-col.rightSide {
+        > div {
+          padding: 0 1rem;
+          div.title {
+            font-size: 20px;
+            font-weight: 500;
+            font-family: "Montserrat", sans-serif;
+            margin-bottom: 0.5rem;
+          }
+        }
+
+        div.hello {
+          .nameHolder {
+            display: flex;
+            flex-direction: column;
+            line-height: 20px;
+            margin-bottom: 0.5rem;
+            .name {
+              font-weight: 600;
+            }
+          }
+        }
+
+        div.contact {
+          .img {
+            width: 100%;
+            overflow: hidden;
+            border-radius: 50%;
+          }
+
+          .infoHolder {
+            display: flex;
+            flex-direction: column;
+            > span {
+              > span.anticon {
+                margin-right: 0.5rem;
+              }
+            }
+
+            .contactHolder {
+              display: flex;
+              flex-direction: column;
+              line-height: 20px;
+              margin-bottom: 0.5rem;
+            }
+          }
+        }
+
+        div.education,
+        div.experience,
+        div.skill,
+        div.language {
+          .educationHolder,
+          .experienceHolder,
+          .skillHolder,
+          .languageHolder {
+            display: flex;
+            flex-direction: column;
+            line-height: 20px;
+            margin-bottom: 0.5rem;
+          }
+        }
+        div.info {
+          div.contact {
+            div.contactLogos {
+              display: inline-block;
+              padding: 0.5rem 1.5rem;
+              text-align: left;
+              background-color: gainsboro;
+              > div {
+                display: flex;
+                align-items: center;
+                margin: 4px 0;
+                i {
+                  margin-right: 0.25rem;
+                  font-size: 24px;
+                }
+              }
+            }
+          }
+
+          div.interests {
+            div.interestsLogos {
+              margin-bottom: 0.5rem;
+
+              font-size: 24px;
+              > i {
+                margin: 0 0.5rem;
+              }
+
+              > i:last-child {
+                margin-right: 0;
+              }
+            }
+          }
+        }
+
+        // div.language {
+        //   margin-top: 2rem;
+        // }
+      }
+    }
+    .ant-row.firstRow,
+    .ant-row.secondRow,
+    .ant-row.thirdRow,
+    .ant-row.forthRow {
+      div.ant-col.rightSide {
+        border-left: 0.5px dashed#ACACAC;
+      }
+    }
+  }
+}

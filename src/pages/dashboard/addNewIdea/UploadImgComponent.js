@@ -1,6 +1,7 @@
 import React from "react";
 import { Upload, message } from "antd";
 import { LoadingOutlined, PlusOutlined } from "@ant-design/icons";
+import { APP_CONSTANTS } from "../../../constants";
 
 class UploadImgComponent extends React.Component {
   constructor(props) {
@@ -8,7 +9,7 @@ class UploadImgComponent extends React.Component {
 
     this.state = {
       loading: false,
-      imageUrl: "",
+      imageUrl: props.imageUrl ? APP_CONSTANTS.BE_URI + props.imageUrl : "",
     };
   }
 
@@ -64,7 +65,7 @@ class UploadImgComponent extends React.Component {
         listType="picture-card"
         className="avatar-uploader"
         showUploadList={false}
-        action="http://localhost:4000/api/uploadImg"
+        action={`${APP_CONSTANTS.BE_URI}api/uploadImg`}
         beforeUpload={this.beforeUpload}
         onChange={this.handleChange}
       >

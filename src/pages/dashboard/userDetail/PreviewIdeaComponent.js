@@ -8,10 +8,19 @@ import { inject } from "mobx-react";
 
 import I from "../../components/IconComponent";
 import { call, openNotification } from "../../../services";
+import UsernameComponent from "../../components/UsernameComponent";
 
-const { VOTE_TYPE, BE_URI } = APP_CONSTANTS;
+const { BE_URI, ideaPreviewParamsType } = APP_CONSTANTS;
 const { Paragraph } = Typography;
-const skipClasname = ["expandSpan", "deleteSpan", "commentSpan", "fas", "fad"];
+const skipClasname = [
+  "expandSpan",
+  "deleteSpan",
+  "commentSpan",
+  "fas",
+  "fad",
+  "handleBookmark",
+  "usernameSpan",
+];
 
 @withRouter
 @inject(({ stores }) => stores)
@@ -22,6 +31,11 @@ class PreviewIdeaComponent extends Component {
     this.state = {
       isExpanded: false,
       visibleModal: false,
+      bookmarkedYet: props.userDetail
+        ? props.userDetail.bookmarks?.some(
+            (bookmark) => bookmark._id === props.ideaToShow._id
+          )
+        : false,
     };
   }
 
@@ -49,7 +63,7 @@ class PreviewIdeaComponent extends Component {
 
   handleDelete = async (itemId) => {
     const {
-      props: { getUser, userDetail },
+      props: { userDetail, getIdeasToShow },
     } = this;
     const retrievedData = await call("delete", `api/idea/${itemId}`);
     if (retrievedData) {
@@ -59,14 +73,37 @@ class PreviewIdeaComponent extends Component {
         "success"
       );
 
-      getUser(userDetail.username);
+      this.toggleVisibleModal(false);
+
+      getIdeasToShow(
+        userDetail.username,
+        APP_CONSTANTS.ideaPreviewParamsType.ideas
+      );
     }
+  };
+
+  handleBookmark = (topicId) => {
+    const {
+      props: { globalState },
+    } = this;
+
+    call("post", `api/idea/${topicId}/bookmark`).then((retrievedData) => {
+      if (retrievedData && retrievedData._id) {
+        this.setState((prevState) => ({ bookmarkedYet: !prevState }));
+        globalState.setState({ currentUser: retrievedData });
+      }
+    });
   };
 
   render() {
     const {
-      state: { isExpanded },
-      props: { ideaToShow, userDetail },
+      state: { isExpanded, bookmarkedYet },
+      props: {
+        ideaToShow,
+        userDetail,
+        isOwner,
+        match: { params },
+      },
     } = this;
 
     const isVoted = ideaToShow.upvotes.find(
@@ -76,6 +113,16 @@ class PreviewIdeaComponent extends Component {
       : ideaToShow.downvotes.find((item) => item._id === userDetail._id)
       ? -1
       : 0;
+
+    const paramsType = !!!params.type
+      ? ideaPreviewParamsType.ideas
+      : params.type;
+
+    // const bookmarkedYet = userDetail
+    //   ? userDetail.bookmarks?.some(
+    //       (bookmark) => bookmark._id === ideaToShow._id
+    //     )
+    //   : false;
 
     return (
       <>
@@ -116,17 +163,10 @@ class PreviewIdeaComponent extends Component {
                   <div className="title">{ideaToShow.idea}</div>
 
                   <div className="subTitle">
-                    <span>{ideaToShow.createdBy.username}</span> •{" "}
+                    <UsernameComponent {...ideaToShow.createdBy} /> •{" "}
                     <Popover
                       content={
-                        <span
-                          style={{
-                            padding: "0.25rem",
-                            backgroundColor: "#dbdbdb",
-                            borderRadius: "3px",
-                            color: "rgba(0, 0, 0, 0.65)",
-                          }}
-                        >
+                        <span className="popoverDateStyle">
                           {moment(ideaToShow.createdAt).format(
                             "MMMM Do YYYY, h:mm:ss a"
                           )}
@@ -155,23 +195,39 @@ class PreviewIdeaComponent extends Component {
                       />
                     )}
                   </span>
-
                   <span className="pseudo"></span>
-
                   <span className="commentSpan">
                     <I className="expandSpan" type="solid" icon="comments" />{" "}
                     {ideaToShow.comments.length} comments
                   </span>
-
                   <span className="pseudo"></span>
 
-                  <span
-                    className="deleteSpan"
-                    onClick={() => this.toggleVisibleModal(true)}
-                  >
-                    <I className="expandSpan" type="solid" icon="trash-alt" />{" "}
-                    delete
-                  </span>
+                  {paramsType === ideaPreviewParamsType.ideas && isOwner && (
+                    <span
+                      className="deleteSpan"
+                      onClick={() => this.toggleVisibleModal(true)}
+                    >
+                      <I className="expandSpan" type="solid" icon="trash-alt" />{" "}
+                      delete
+                    </span>
+                  )}
+
+                  {paramsType === ideaPreviewParamsType.bookmarks &&
+                    (bookmarkedYet ? (
+                      <span
+                        className="handleBookmark"
+                        onClick={() => this.handleBookmark(ideaToShow._id)}
+                      >
+                        <I type="solid" icon="check-square" /> Unsave
+                      </span>
+                    ) : (
+                      <span
+                        className="handleBookmark"
+                        onClick={() => this.handleBookmark(ideaToShow._id)}
+                      >
+                        <I type="solid" icon="bookmark" /> Save
+                      </span>
+                    ))}
                 </div>
               </div>
             </div>

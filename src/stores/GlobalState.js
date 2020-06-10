@@ -8,8 +8,14 @@ export class GlobalState {
 
   ideasToShow = [];
 
+  getCurrentUser = null;
+
+  initDashboardFromCreate = false;
+
+  visibleModalDelete = false;
+
   setState = (object) => {
-    // console.log(object);
+    console.log(object);
     Object.keys(object).map((key) => {
       this[key] = object[key];
       return key;
@@ -29,6 +35,8 @@ decorate(GlobalState, {
   isAuth: observable,
   currentUser: observable,
   ideasToShow: observable,
+  initDashboardFromCreate: observable,
   setState: action,
   handleIdeaChange: action,
+  getCurrentUser: observable,
 });

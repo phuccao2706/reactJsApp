@@ -3,32 +3,83 @@ import { withRouter } from "react-router-dom";
 import { inject, observer } from "mobx-react";
 
 import PreviewIdeaComponent from "./PreviewIdeaComponent";
+import { call } from "../../../services";
 
 @withRouter
 @inject(({ stores }) => stores)
 @observer
 class ProfilePosts extends Component {
-  render() {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      ideasToShow: [],
+    };
+  }
+
+  getIdeasToShow = async (username, type) => {
+    const recivedData = await call("get", `api/user/${username}/${type}`);
+    if (recivedData) {
+      // console.log(recivedData);
+      this.setState({ ideasToShow: recivedData });
+    }
+  };
+
+  componentDidMount() {
+    const {
+      props: { userDetail, type },
+    } = this;
+
+    // const type = !!!params.type
+    //   ? APP_CONSTANTS.ideaPreviewParamsType.ideas
+    //   : APP_CONSTANTS.ideaPreviewParamsType.bookmarks;
+    console.log(this.props);
+    this.getIdeasToShow(userDetail.username, type);
+  }
+
+  componentDidUpdate(
+    {
+      type: prevType,
+      match: {
+        params: { username: prevUsername },
+      },
+    },
+    prevState
+  ) {
     const {
       props: {
-        userDetail,
-        match: { params },
+        type,
+        match: {
+          params: { username },
+        },
       },
     } = this;
-    const ideaToShow = userDetail
-      ? !!!params.type
-        ? [...userDetail.ideas]
-        : [...userDetail.bookmarks]
-      : [];
+
+    if (type !== prevType || username !== prevUsername) {
+      this.getIdeasToShow(
+        // userDetail.username,
+        username,
+        type
+        // type || APP_CONSTANTS.ideaPreviewParamsType.ideas
+      );
+    }
+  }
+
+  render() {
+    const {
+      state: { ideasToShow },
+      props: { isOwner, userDetail },
+    } = this;
 
     return (
       <div className="profilePostContainer">
-        {ideaToShow.map((idea, index) => (
+        {ideasToShow.map((idea, index) => (
           <PreviewIdeaComponent
             key={index}
             ideaToShow={idea}
             userDetail={userDetail}
-            getUser={this.props.getUser}
+            getIdeasToShow={this.getIdeasToShow}
+            isOwner={isOwner}
           />
         ))}
       </div>

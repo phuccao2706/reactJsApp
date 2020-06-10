@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { observer, inject } from "mobx-react";
-import { withRouter, Link } from "react-router-dom";
+import { withRouter } from "react-router-dom";
 import { Popover } from "antd";
 import { CaretDownOutlined } from "@ant-design/icons";
 import AvatarComponent from "../../components/AvatarComponent";
@@ -28,7 +28,7 @@ export default withRouter(
           <span
             onClick={() => {
               props.history.push(
-                `/userDetail/${props.globalState.currentUser.username}`
+                `/userDetail/${props.globalState.currentUser.username}/ideas`
               );
               setPopoverVisible(false);
             }}

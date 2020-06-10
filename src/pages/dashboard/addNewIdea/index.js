@@ -6,20 +6,23 @@ import { PlusOutlined } from "@ant-design/icons";
 import "./index.less";
 
 import UploadImgComponent from "./UploadImgComponent";
+import { inject } from "mobx-react";
+import { GLOBAL_STATE } from "../../../constants";
 
 const { TextArea } = Input;
 
 @withRouter
+@inject(({ stores }) => stores)
 class AddNewIdea extends PureComponent {
   constructor(props) {
     super(props);
 
     this.state = {
-      ideaValue: "",
-      descriptionValue: "",
-      imageUrl: "",
+      ideaValue: props.ideaToShow ? props.ideaToShow.idea : "",
+      descriptionValue: props.ideaToShow ? props.ideaToShow.description : "",
+      imageUrl: props.ideaToShow ? props.ideaToShow.imageUrl : "",
       // for tags
-      hashtagsValue: [],
+      hashtagsValue: props.ideaToShow ? props.ideaToShow.hashtags : [],
       tagsInputVisible: false,
       tagsInputValue: "",
       editTagsInputIndex: -1,
@@ -30,7 +33,7 @@ class AddNewIdea extends PureComponent {
   handleSubmitIdea = async () => {
     const {
       state: { ideaValue, descriptionValue, hashtagsValue, imageUrl },
-      props: { history },
+      props: { history, globalState },
     } = this;
 
     await call("post", "api/idea", {
@@ -40,7 +43,13 @@ class AddNewIdea extends PureComponent {
       imageUrl,
     }).then((data) => {
       if (data && data._id) {
-        history.push("/ideas");
+        globalState.setState({
+          [GLOBAL_STATE.initDashboardFromCreate]: true,
+          ideasToShow: [data, ...globalState.ideasToShow],
+        });
+        history.push({
+          pathname: "/ideas",
+        });
       }
     });
   };
@@ -49,7 +58,6 @@ class AddNewIdea extends PureComponent {
     const hashtagsValue = this.state.hashtagsValue.filter(
       (tag) => tag !== removedTag
     );
-    console.log(hashtagsValue);
     this.setState({ hashtagsValue });
   };
 
@@ -98,27 +106,39 @@ class AddNewIdea extends PureComponent {
 
   saveEditInputRef = (input) => (this.editInput = input);
 
+  componentDidMount() {
+    const { childRef } = this.props;
+    if (childRef) childRef(this);
+  }
+
   render() {
     const {
       state: {
+        ideaValue,
+        descriptionValue,
+        imageUrl,
         hashtagsValue,
         tagsInputVisible,
         tagsInputValue,
         editTagsInputIndex,
         editTagsInputValue,
       },
+      props: { ideaToShow },
     } = this;
 
     return (
       <div className="addNewIdeaContainer">
-        <div className="title">
-          <span>got any idea?</span>
-          <div className="arrow-up "></div>
-        </div>
+        {!ideaToShow && (
+          <div className="title">
+            <span>got any idea?</span>
+            <div className="arrow-up "></div>
+          </div>
+        )}
         <Input
           onChange={({ target: { value } }) =>
             this.setState({ ideaValue: value })
           }
+          value={ideaValue}
           placeholder="idea"
         />
 
@@ -127,11 +147,15 @@ class AddNewIdea extends PureComponent {
             onChange={({ target: { value } }) =>
               this.setState({ descriptionValue: value })
             }
+            value={descriptionValue}
             placeholder="description"
             rows={4}
           />
           <UploadImgComponent
-            getImgUrl={(imageUrl) => this.setState({ imageUrl })}
+            imageUrl={imageUrl}
+            getImgUrl={(returnedImageUrl) =>
+              this.setState({ imageUrl: returnedImageUrl })
+            }
           />
         </div>
 
@@ -211,16 +235,18 @@ class AddNewIdea extends PureComponent {
           )}
         </div>
 
-        <div className="functionalBtns">
-          <Button className="cancelBtn">Default</Button>
-          <Button
-            onClick={this.handleSubmitIdea}
-            className="primaryBtn"
-            type="primary"
-          >
-            Primary
-          </Button>
-        </div>
+        {!ideaToShow && (
+          <div className="functionalBtns">
+            <Button className="cancelBtn">Cancel</Button>
+            <Button
+              onClick={this.handleSubmitIdea}
+              className="primaryBtn"
+              type="primary"
+            >
+              Post
+            </Button>
+          </div>
+        )}
       </div>
     );
   }

@@ -9,6 +9,7 @@
 
     img.ideaImg {
       max-width: 100%;
+      cursor: pointer;
     }
     > .ant-row {
       > .ant-col-2 {
@@ -33,31 +34,33 @@
 
         ////////////////////
 
-        > span.anticon {
+        > span.iconHolder {
+          text-align: center;
           border-radius: 2px;
+          cursor: pointer;
         }
 
-        > span.anticon:hover {
+        > span.iconHolder:hover {
           background-color: #ebeced;
         }
 
         ////////////////////
 
-        > span.anticon:first-child:hover {
+        > span.iconHolder:first-child:hover {
           color: #f9665e;
         }
 
-        > span.anticon:last-child:hover {
+        > span.iconHolder:last-child:hover {
           color: #799fcb;
         }
 
         ////////////////////
 
-        > span.anticon.voted:first-child {
+        > span.iconHolder.voted:first-child {
           color: #f9665e;
         }
 
-        > span.anticon.voted:last-child {
+        > span.iconHolder.voted:last-child {
           color: #799fcb;
         }
 
@@ -76,10 +79,18 @@
       }
     }
     .pageHeader {
+      // padding-bottom: 0;
+      // padding-top: 0;
+      padding: 0 0.25rem 0 0.25rem;
       .ant-page-header-content {
+        margin: 0 0.25rem;
         > .ant-row {
           flex-direction: column;
         }
+      }
+      .title {
+        font-size: 18px;
+        cursor: pointer;
       }
       .subTitle {
         color: rgba(0, 0, 0, 0.45);
@@ -102,12 +113,14 @@
 
       .ideaFooter {
         .ideaFunctionalBtns {
-          font-size: 12px;
-          padding-top: 0.5rem;
-
+          margin-top: 0.5rem;
+          font-size: 13px;
+          border-top: 1px solid #f5f5f5;
           span {
+            transition: ease 0.3s;
             display: inline-block;
             padding: 0.25rem;
+            margin: 0.25rem;
             border-radius: 4px;
             user-select: none;
             cursor: pointer;
@@ -129,6 +142,13 @@
     }
     .ant-typography {
       margin-right: 0.5rem;
+      white-space: pre-line;
     }
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .ideasContainer {
+    width: 90%;
   }
 }

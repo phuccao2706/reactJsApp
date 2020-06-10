@@ -1,87 +1,71 @@
 import React, { useEffect, useState } from "react";
 import { observer, inject } from "mobx-react";
-import { withRouter, Switch, Route, useRouteMatch } from "react-router-dom";
-import { Skeleton } from "antd";
+import { withRouter, Switch, Route } from "react-router-dom";
 import IdeaComponent from "./IdeaComponent";
-import IdeaDetailComponent from "../ideaDetail";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 import { call } from "../../../services";
 import "./index.less";
+import IdeaDetailComponent from "../ideaDetail";
+import { Spin } from "antd";
+import { GLOBAL_STATE } from "../../../constants";
 
 export default withRouter(
   inject(({ stores }) => stores)(
     observer(function IdeasComponent(props) {
-      const [hasMore, setHasMore] = useState(true);
+      const [loadingState, setLoadingState] = useState(true);
 
-      let getIdeas = async (page) => {
-        const {
-          globalState: { ideasToShow },
-        } = props;
-        const aoIdeas = await getAoIdeas();
-
-        if (aoIdeas === ideasToShow.length) {
-          setHasMore(false);
-          return;
+      let getIdeas = async () => {
+        const retrievedIdeas = await call("get", `api/idea/`);
+        if (retrievedIdeas) {
+          props.globalState.setState({
+            ideasToShow: retrievedIdeas,
+          });
+          setLoadingState(false);
         }
-        const retrievedIdeas = await call("get", `api/idea/?page=${page}`);
-        console.log(retrievedIdeas);
-        props.globalState.setState({
-          // ideasToShow: [...ideasToShow, ...retrievedIdeas],
-          ideasToShow: retrievedIdeas,
-        });
-        // setIdeas((ideas) => [...ideas, ...retrievedIdeas]);
-      };
-
-      let getAoIdeas = async () => {
-        const retrievedData = await call("get", `api/idea/amount`);
-        return retrievedData;
-      };
-
-      const setGlobalState = (obj) => {
-        props.globalState.setState(obj);
       };
 
       useEffect(() => {
-        getIdeas(1);
+        if (!props.globalState[GLOBAL_STATE.initDashboardFromCreate]) {
+          getIdeas();
+        } else {
+          setLoadingState(false);
+          props.globalState.setState({
+            [GLOBAL_STATE.initDashboardFromCreate]: false,
+          });
+        }
+
         // eslint-disable-next-line react-hooks/exhaustive-deps
       }, []);
 
-      const { ideasToShow, currentUser } = props.globalState;
+      // useEffect(() => {
+      //   console.log(props.location.state.fromCreateIdea);
+      // }, [props.location]);
 
+      const {
+        globalState: { ideasToShow, currentUser },
+        match: { path },
+      } = props;
       return (
-        currentUser && (
+        currentUser &&
+        (!loadingState ? (
           <div className="ideasContainer">
-            <InfiniteScroll
-              dataLength={ideasToShow.length}
-              next={() => getIdeas(Math.ceil(ideasToShow.length / 10) + 1)}
-              hasMore={hasMore}
-              loader={<Skeleton avatar paragraph={{ rows: 4 }} />}
-              endMessage={
-                <p style={{ textAlign: "center" }}>
-                  I have no 'ideas'{" "}
-                  <span role="img" aria-label="bulb">
-                    💡
-                  </span>
-                </p>
-              }
-            >
-              {props.globalState.ideasToShow.map((idea, index) => (
-                <IdeaComponent
-                  key={index}
-                  ideaToShow={idea}
-                  globalStateRef={{ ...props.globalState }}
-                />
-              ))}
-            </InfiniteScroll>
+            {ideasToShow.map((idea, index) => (
+              <IdeaComponent
+                key={index}
+                ideaToShow={idea}
+                globalStateRef={{ ...props.globalState }}
+              />
+            ))}
 
-            {/* <Switch>
-              <Route exact={true} path={`${path}/:topicId`}>
+            <Switch>
+              <Route exact path={`${path}/:topicId`}>
                 <IdeaDetailComponent />
               </Route>
-            </Switch> */}
+            </Switch>
           </div>
-        )
+        ) : (
+          <Spin size="large" />
+        ))
       );
     })
   )

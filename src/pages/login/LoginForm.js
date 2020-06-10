@@ -4,7 +4,7 @@ import { observer, inject } from "mobx-react";
 
 import { Form, Input, Button } from "antd";
 import { UserOutlined, LockOutlined } from "@ant-design/icons";
-import { call, openNotification, setToken } from "@services";
+import { call, openNotification } from "@services";
 import { APP_CONSTANTS } from "../../constants";
 
 export default inject(({ stores }) => stores)(

@@ -1,28 +1,174 @@
 @import (inline) "./pages/dashboard/about/googlefonts.css";
 
+.popoverDateStyle {
+  padding: 0.25rem;
+  background-color: #dbdbdb;
+  border-radius: 3px;
+  color: rgba(0, 0, 0, 0.65);
+  font-size: 12px;
+}
+
+.editIdeaModal {
+  div.addNewIdeaContainer {
+    > div.row2 {
+      display: flex;
+      > .avatar-uploader {
+        margin-left: 0.5rem;
+        width: auto;
+        > .ant-upload {
+          margin-right: 0;
+        }
+      }
+    }
+
+    > input.ant-input,
+    textarea.ant-input {
+      margin-bottom: 0.5rem;
+    }
+
+    > div.hashtagsHolder {
+      margin-bottom: 0.5rem;
+      .site-tag-plus {
+        background: #fff;
+        border-style: dashed;
+        cursor: pointer;
+      }
+      .site-tag-plus:hover {
+        border-color: #95b4cc;
+        // color: #95b4cc;
+      }
+      .edit-tag {
+        user-select: none;
+      }
+      .tag-input {
+        width: 4rem;
+        margin-right: 8px;
+        vertical-align: top;
+      }
+    }
+  }
+}
+
+.modalChangeAvatar {
+  .primaryBtn {
+    background-color: #95b4cc;
+    border: #95b4cc;
+  }
+
+  .primaryBtn:hover {
+    background-color: lighten(#95b4cc, 5%);
+    border: #95b4cc;
+  }
+
+  .avatarOutter {
+    display: flex;
+    justify-content: center;
+    padding: 0.5rem 0;
+  }
+
+  .btnsOutter {
+    display: flex;
+    justify-content: center;
+    > span,
+    > button {
+      margin: 0 0.25rem;
+    }
+  }
+}
+
 .ideaDetailModal {
   width: 60% !important;
   top: 0;
   padding-bottom: 0;
+
+  .ant-modal-content {
+    padding: 24px;
+    background-color: #dae0e6;
+    > button {
+      right: 24px;
+      top: 24px;
+    }
+    .ant-modal-body {
+      background-color: #fff;
+      padding: 0;
+      border-radius: 4px;
+    }
+  }
+
+  .commentSection {
+    .commentInput {
+      margin-left: ~"calc(3% + 0.5rem)";
+      margin-right: ~"calc(0.5rem)";
+      flex-direction: column;
+      display: flex;
+      border-bottom: 1px solid #f5f5f5;
+      padding-bottom: 0.25rem;
+      margin-bottom: 1rem;
+      button {
+        margin: 0.25rem 0 0.25rem auto;
+      }
+    }
+
+    .comments {
+      .commentElement {
+        display: flex;
+        .lSide {
+          flex: 0 0 5%;
+          max-width: 5%;
+          background-color: #fff;
+        }
+        .rSide {
+          flex: 0 0 95%;
+          max-width: 95%;
+          .row1 {
+            span:first-child {
+              margin-right: 0.25rem;
+            }
+            span.name {
+              font-size: 12px;
+              font-weight: normal;
+              user-select: none;
+              cursor: pointer;
+            }
+            span.time {
+              color: rgba(0, 0, 0, 0.45);
+              font-size: 12px;
+              font-weight: normal;
+              user-select: none;
+              cursor: pointer;
+            }
+
+            span.time:hover,
+            span.name:hover {
+              text-decoration: underline;
+            }
+          }
+        }
+      }
+    }
+  }
+
   .ideaComponent {
     // border: 1px solid #898989;
+    background-color: #fff;
+
     border-radius: 5px;
-    margin: 1rem 0;
     > .ant-row {
       > .ant-col-2 {
-        flex: 0 0 5%;
-        max-width: 5%;
+        flex: 0 0 3%;
+        max-width: 3%;
       }
 
       > .ant-col-22 {
-        flex: 0 0 95%;
-        max-width: 95%;
+        flex: 0 0 97%;
+        max-width: 97%;
       }
     }
     .voteBtnsHolder {
-      background-color: #f8f9fa;
+      background-color: #fff;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
+      // border-bottom: 1px solid #f5f5f5;
       > div {
         display: flex;
         flex-direction: column;
@@ -31,37 +177,40 @@
 
         ////////////////////
 
-        > span.anticon {
+        > span.iconHolder {
+          text-align: center;
           border-radius: 2px;
+          cursor: pointer;
         }
 
-        > span.anticon:hover {
+        > span.iconHolder:hover {
           background-color: #ebeced;
         }
 
         ////////////////////
 
-        > span.anticon:first-child:hover {
+        > span.iconHolder:first-child:hover {
           color: #f9665e;
         }
 
-        > span.anticon:last-child:hover {
+        > span.iconHolder:last-child:hover {
           color: #799fcb;
         }
 
         ////////////////////
 
-        > span.anticon.voted:first-child {
+        > span.iconHolder.voted:first-child {
           color: #f9665e;
         }
 
-        > span.anticon.voted:last-child {
+        > span.iconHolder.voted:last-child {
           color: #799fcb;
         }
 
         > span.point {
           font-size: 12px;
           text-align: center;
+          user-select: none;
         }
 
         > span.point.downvoted {
@@ -74,13 +223,20 @@
       }
     }
     .pageHeader {
+      // padding-bottom: 8px;
+      // padding-top: 0;
+      padding: 0 0.25rem 0.5rem 0.25rem;
       img.ideaImg {
         max-width: 100%;
       }
       .ant-page-header-content {
+        margin: 0 0.25rem;
         > .ant-row {
           flex-direction: column;
         }
+      }
+      .title {
+        font-size: 18px;
       }
       .subTitle {
         color: rgba(0, 0, 0, 0.45);
@@ -104,11 +260,17 @@
 
       .ideaFooter {
         .ideaFunctionalBtns {
-          font-size: 12px;
+          font-size: 13px;
+          border-top: 1px solid #f5f5f5;
+          margin-top: 0.5rem;
           > span {
+            transition: ease 0.3s;
+
             margin-top: 0.5rem;
             display: inline-block;
             padding: 0.25rem;
+            margin: 0.25rem;
+
             border-radius: 4px;
             user-select: none;
             cursor: pointer;
@@ -130,6 +292,7 @@
     }
     .ant-typography {
       margin-right: 0.5rem;
+      white-space: pre-line;
     }
   }
 }

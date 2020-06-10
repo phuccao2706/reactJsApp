@@ -12,6 +12,7 @@ export const openNotification = ({ description, message }, placement, type) => {
 
 export const call = async (method, path, data) => {
   try {
+    // console.log(data);
     const token = window.localStorage.getItem(APP_CONSTANTS.TOKEN);
     axios.defaults.headers.common["Authorization"] = `Bearer ${token}`;
     const response = await axios[method](

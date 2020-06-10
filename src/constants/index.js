@@ -1,6 +1,9 @@
 export const GLOBAL_STATE = {
   IS_AUTH: "isAuth",
   CURRENT_USER: "currentUser",
+  GET_CURRENT_USER: "getCurrentUser",
+  initDashboardFromCreate: "initDashboardFromCreate",
+  visibleModalDelete: "visibleModalDelete",
 };
 
 export const APP_CONSTANTS = {
@@ -22,5 +25,10 @@ export const APP_CONSTANTS = {
     NOT_FOUND: "/notFound",
     ADD_NEW_IDEA: "/addNewIdea",
     USER_DETAIL: "/userDetail",
+  },
+
+  ideaPreviewParamsType: {
+    ideas: "ideas",
+    bookmarks: "bookmarks",
   },
 };

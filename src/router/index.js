@@ -15,6 +15,7 @@ import DetailUser from "../pages/dashboard/userDetail";
 import IdeasComponent from "../pages/dashboard/ideas";
 import AboutComponent from "../pages/dashboard/about";
 import AddNewIdea from "../pages/dashboard/addNewIdea";
+import NotFoundComponent from "../pages/dashboard/notFound";
 
 import { APP_CONSTANTS } from "../constants";
 import IdeaDetailComponent from "../pages/dashboard/ideaDetail";
@@ -44,58 +45,49 @@ const RouterComponent = inject(({ stores }) => stores)(
                   />
                 )
               )}
+
             {isAuth && (
               <Route
-                exact
-                path={[
-                  ...authenticateRoutes.map((item) => item.path),
-                  "/ideas/:topicId",
-                  "/userDetail/:topicId/",
-                  "/userDetail/:topicId/:type",
-                  "/userDetail/:topicId/idea/:topicId",
-                ]}
-              >
-                <LayoutDashboard>
-                  <AuthWrapper>
-                    <Suspense fallback={<Skeleton />}>
-                      <Route
-                        path={`${APP_CONSTANTS.routes.IDEAS}`}
-                        render={() => <IdeasComponent />}
-                      />
+                path={`${APP_CONSTANTS.routes.ABOUT}`}
+                render={() => <AboutComponent />}
+              />
+            )}
 
-                      <Route
-                        path={`${APP_CONSTANTS.routes.ADD_NEW_IDEA}`}
-                        render={() => <AddNewIdea />}
-                      />
+            {isAuth && (
+              <LayoutDashboard>
+                <AuthWrapper>
+                  {/* <Suspense fallback={<Skeleton />}> */}
+                  <Switch>
+                    <Route exact={true} path={"/"}>
+                      <Redirect to={"/ideas"} />
+                    </Route>
 
-                      <Route
-                        path={`${APP_CONSTANTS.routes.ABOUT}`}
-                        render={() => <AboutComponent />}
-                      />
+                    <Route path={`${APP_CONSTANTS.routes.IDEAS}`}>
+                      <IdeasComponent />
+                    </Route>
 
-                      <Route
-                        path={`${APP_CONSTANTS.routes.USER_DETAIL}/:username`}
-                        render={() => <DetailUser />}
-                      />
+                    <Route path={`${APP_CONSTANTS.routes.ADD_NEW_IDEA}`}>
+                      <AddNewIdea />
+                    </Route>
 
-                      <Route
-                        exact
-                        path={`${APP_CONSTANTS.routes.IDEAS}/:topicId`}
-                        render={() => (
-                          <IdeaDetailComponent
-                          // fromUserDetail={true}
-                          // getUser={() => this.getUser(userDetail.username)}
-                          />
-                        )}
-                      ></Route>
-                    </Suspense>
-                  </AuthWrapper>
-                </LayoutDashboard>
-              </Route>
+                    <Route
+                      path={`${APP_CONSTANTS.routes.USER_DETAIL}/:username`}
+                    >
+                      <DetailUser />
+                    </Route>
+                    {/* <Route path={`${APP_CONSTANTS.routes.IDEAS}/:topicId`}>
+                      <IdeaDetailComponent />
+                    </Route> */}
+                    {/* <Route>
+                      <NotFoundComponent />
+                    </Route> */}
+                  </Switch>
+                </AuthWrapper>
+              </LayoutDashboard>
             )}
 
             {!isAuth && <Redirect to={"/login"} />}
-            <Redirect exact={true} to={"/notfound"} />
+            {/* <Redirect exact={true} to={"/notfound"} /> */}
           </Switch>
         </Suspense>
       </Router>

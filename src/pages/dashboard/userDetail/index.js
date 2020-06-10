@@ -6,6 +6,7 @@ import Layout from "./Layout";
 
 import { call } from "../../../services";
 import "./index.less";
+import { APP_CONSTANTS } from "../../../constants";
 
 @withRouter
 @inject(({ stores }) => stores)
@@ -22,6 +23,7 @@ class UserDetail extends Component {
   getUser = async (username) => {
     const userDetail = await call("get", `api/user/${username}`);
     if (userDetail && userDetail._id) {
+      console.log(userDetail);
       this.setState({
         userDetail,
       });
@@ -38,32 +40,76 @@ class UserDetail extends Component {
     } = this;
     this.getUser(username);
   }
+
+  componentDidUpdate(
+    {
+      match: {
+        params: { username: prevUsername },
+      },
+    },
+    prevState
+  ) {
+    const {
+      props: {
+        match: {
+          params: { username },
+        },
+      },
+    } = this;
+
+    if (username !== prevUsername) {
+      this.getUser(username);
+    }
+  }
+
   render() {
     const {
       state: { userDetail },
       props: {
-        match: { url, path },
+        match: { path, params },
+        globalState,
       },
     } = this;
 
+    const isOwner = globalState.currentUser?._id === userDetail?._id;
     return (
-      <Layout userDetail={userDetail}>
-        <Switch>
-          <Route
-            exact
-            path={`${url}`}
-            render={() => (
-              <ProfilePosts userDetail={userDetail} getUser={this.getUser} />
+      userDetail && (
+        <Layout
+          isOwner={isOwner}
+          userDetail={userDetail}
+          getUser={this.getUser}
+        >
+          <Switch>
+            <Route
+              exact
+              path={`${path}/${APP_CONSTANTS.ideaPreviewParamsType.ideas}`}
+              key={params.type}
+              render={() => (
+                <ProfilePosts
+                  userDetail={userDetail}
+                  isOwner={isOwner}
+                  type={APP_CONSTANTS.ideaPreviewParamsType.ideas}
+                />
+              )}
+            />
+
+            {isOwner && (
+              <Route
+                exact
+                path={`${path}/${APP_CONSTANTS.ideaPreviewParamsType.bookmarks}`}
+                key={params.type}
+                render={() => (
+                  <ProfilePosts
+                    userDetail={userDetail}
+                    isOwner={isOwner}
+                    type={APP_CONSTANTS.ideaPreviewParamsType.bookmarks}
+                  />
+                )}
+              />
             )}
-          ></Route>
-          <Route
-            path={`${path}/:type`}
-            render={() => (
-              <ProfilePosts userDetail={userDetail} getUser={this.getUser} />
-            )}
-          ></Route>
-        </Switch>
-      </Layout>
+          </Switch>
+        </Layout>
+      )
     );
   }
 }

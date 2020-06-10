@@ -1,237 +1,154 @@
-import React from "react";
-import "./index.less";
+import React, { Component } from "react";
 import { Row, Col } from "antd";
-import { withRouter } from "react-router-dom";
+import I from "../../components/IconComponent";
+import "./index.less";
 
-const dualToneStyle = {
-  style: { "--fa-primary-color": "#95b4cc", "--fa-secondary-color": "#fec9c9" },
-};
+export default class AboutComponent extends Component {
+  render() {
+    return (
+      <div id="container">
+        <img
+          className="bg bgUpper"
+          alt="backgroud"
+          src={require("./media/bg.jpeg")}
+        />
+        <img
+          className="bg bgDowner"
+          alt="backgroud"
+          src={require("./media/bg.jpeg")}
+        />
 
-export default withRouter(function AboutComponent() {
-  return (
-    <div className="aboutContainer">
-      <div className="innerContainer">
-        <Row className="header">
-          <Col className="fistname" span={8} offset={3}>
-            <span>Phuc</span>
-          </Col>
+        <div className="body">
+          <div className="header">
+            <div>
+              <div className="subHeader">
+                {/* <div className="avatarHolder"> */}
+                <img
+                  className="img"
+                  alt="img"
+                  src={require("./media/avatar2.jpg")}
+                />
+                {/* </div> */}
+                <div className="fullname">
+                  <div className="subFullname">
+                    <span>Cao Hồng</span>
+                    <span className="name"> Phúc</span>
+                  </div>
 
-          <Col span={2}>
-            <img
-              className="img"
-              alt="img"
-              src={require("./media/avatar.jpg")}
-            />
-          </Col>
-
-          <Col className="lastname" span={8}>
-            <span>Cao Hong</span>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="icon">
-          <Col offset={11} span={2}>
-            <i {...dualToneStyle} className="fad fa-seedling"></i>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="firstRow">
-          <Col className="leftSide" span={12}>
-            <div className="hello">
-              <div className="title">Hello</div>
-
-              <div className="nameHolder">
-                <span>
-                  I'm <span className="name">Phuc</span>
-                </span>
-                <span>born and raised in Thu Duc, Ho Chi Minh city.</span>
+                  <div className="title">FULL STACK DEVELOPER</div>
+                </div>
               </div>
             </div>
-          </Col>
+          </div>
 
-          <Col span={12} className="rightSide">
-            <div className="contact">
-              <div className="title">And I am a</div>
-              <div className="infoHolder">
-                <span style={{ fontWeight: 600 }}>
-                  Web Application Developer
-                </span>
-                <span>it means I write code for a living.</span>
-              </div>
-              {/* </Col>
-              </Row> */}
-            </div>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="icon">
-          <Col offset={11} span={2}>
-            <i {...dualToneStyle} className="fad fa-books"></i>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="secondRow">
-          <Col className="leftSide" span={12}>
-            <div className="education">
-              <div className="title">Education</div>
-
-              <div className="educationHolder">
-                <span>
-                  <span className="bold">Sept 2015 - Current</span>
-                </span>
-                <span>
-                  Bachelor of{" "}
-                  <span className="bold">Information Technology</span>
-                </span>
-                <span>University of Information Technology, VNU</span>
-              </div>
-            </div>
-
-            <div className="language" style={{ marginTop: "3rem" }}>
-              <div className="title">Language</div>
-
-              <div className="languageHolder">
-                <span>
-                  <span className="bold">Vietnamese</span>
-                </span>
-                <span> • Native.</span>
-              </div>
-              <div className="languageHolder">
-                <span>
-                  <span className="bold">English</span>
-                </span>
-                <div>
+          <Row className="content">
+            <Col className="leftSide" span={12}>
+              <div className="section infoSection">
+                <div className="sectionTitle">PERSONAL INFO</div>
+                <div className="sectionBody">
                   <div>
-                    <div> • Score of 905 in TOEIC Listening and Reading.</div>
                     <div>
-                      • Speak English fluently and listen well to English.
+                      <I type="solid" icon="map-marker-alt" /> Thu Duc, Ho Chi
+                      Minh
                     </div>
-                    <div> • Able to research English documents.</div>
+                    <div>
+                      <I type="solid" icon="phone-square" /> 0909 759 447
+                    </div>
+                    <div>
+                      <I type="solid" icon="envelope-square" />{" "}
+                      phuccao2706@gmail.com
+                    </div>
+                    <div>
+                      <i className="fab fa-github-square"></i>{" "}
+                      github.com/phuccao2706
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
 
-          <Col span={12} className="rightSide">
-            <div className="experience">
-              <div className="title">Experience</div>
+              <div className="section skillSection">
+                <div className="sectionTitle">SKILLS</div>
+                <div className="sectionBody">
+                  <div style={{ marginBottom: "0.55rem" }}>
+                    <div className="bold">Frontend</div>
+                    <div>• Experienced with ReactJS.</div>
+                    <div>• Global state management with MobX.</div>
+                    <div>
+                      • Familiar with UI frameworks such as Ant Design and
+                      Bootstrap.
+                    </div>
+                    <div>
+                      • Good understanding of UI/UX design, responsive website.
+                    </div>
+                  </div>
 
-              <div className="experienceHolder">
-                <span>
-                  <span className="bold">2018</span>
-                </span>
-                <span style={{ fontStyle: "italic" }}>
-                  Freelance PDF to HTML converter.
-                </span>
-                <span> • Turn PDF/PSD into websites.</span>
-                <span>
-                  {" "}
-                  • Make responsive webpages using HTML/CSS/JQuery/JavaScript.
-                </span>
-              </div>
-
-              <div className="experienceHolder">
-                <span>
-                  <span className="bold">Aug 2019 - May 2020</span>
-                </span>
-                <span style={{ fontStyle: "italic" }}>
-                  Web Application Developer - Acexis JSC.
-                </span>
-                <span> • Build reusable components.</span>
-                <span>
-                  {" "}
-                  • Mentor new hired coworkers/freshers on basic ReactJS.
-                </span>
-                <span>
-                  {" "}
-                  • Build web application on demand with ReactJS, NestJS,
-                  <br />
-                  MongoDB and GraphQL.
-                </span>
-
-                <span>
-                  • Sketch wireframe, user's flow and draw database diagram.
-                </span>
-              </div>
-            </div>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="icon">
-          <Col offset={11} span={2}>
-            <i {...dualToneStyle} className="fad fa-laptop-code"></i>
-          </Col>
-        </Row>
-        {/* //////////////////////////////////////////////////////////// */}
-        <Row className="thirdRow">
-          <Col className="leftSide" span={12}>
-            <div className="info">
-              <div className="title">Dear whom it may concern</div>
-
-              <div className="interests">
-                <span className="bold">Interests</span>
-                <div className="interestsLogos">
-                  <i className="fas fa-camera-retro"></i>
-                  <i className="fas fa-code"></i>
-                  <i className="fas fa-headphones-alt"></i>
-                  <i className="fas fa-gamepad"></i>
-                </div>
-              </div>
-
-              <div className="contact">
-                <div style={{ fontWeight: 600, lineHeight: "22px" }}>
-                  You can reach me via
-                </div>
-
-                <div className="contactLogos">
+                  <div className="bold">Backend</div>
                   <div>
-                    <i className="far fa-phone-square"></i> (+84) 0909 759 447
+                    • Decent knowledge with NodeJS especially with framework
+                    like NestJS.
+                  </div>
+                  <div>• Able to build GraphQL and RESTful API.</div>
+                  <div>• Familiar with MongoDB and PostgreSQL.</div>
+                </div>
+              </div>
+
+              <div className="section languageSection">
+                <div className="sectionTitle">LANGUAGE</div>
+                <div className="sectionBody">
+                  <div>• Score of 905 in TOEIC Listening and Reading.</div>
+                  <div>
+                    • Speak English fluently and listen well to English.
+                  </div>
+                  <div>• Able to research English documents.</div>
+                </div>
+              </div>
+            </Col>
+            <Col span={12}>
+              <div className="section infoSection">
+                <div className="sectionTitle">EDUCATION</div>
+                <div className="sectionBody">
+                  <div className="bold">Bachelor of Information Technology</div>
+                  <div>University of Information Technology, VNU</div>
+                  <div>Sept 2015 - Current</div>
+                </div>
+              </div>
+
+              <div className="section expSection">
+                <div className="sectionTitle">EXPERIENCE</div>
+                <div className="sectionBody">
+                  <div>
+                    <div className="bold">Freelance PDF to HTML converter.</div>
+                    <div>2018</div>
+                    <div>• Build reusable components.</div>
+                    <div>• Turn PDF/PSD into websites.</div>
+                    <div>
+                      • Make responsive webpages using
+                      HTML/CSS/JQuery/JavaScript.
+                    </div>
                   </div>
                   <div>
-                    <i className="far fa-envelope"></i> phuccao2706@gmail.com
-                  </div>
-                  <div>
-                    <i className="fab fa-github-square"></i> /phuccao2706
+                    <div className="bold">
+                      Acexis JSC. - Web Application Developer
+                    </div>
+                    <div>Aug 2019 - May 2020</div>
+                    <div>• Build reusable components.</div>
+                    <div>
+                      • Mentor new hired coworkers/freshers on basic ReactJS.
+                    </div>
+                    <div>
+                      • Build web application on demand with ReactJS, NestJS,
+                      MongoDB and GraphQL.
+                    </div>
+                    <div>
+                      • Sketch wireframe, user's flow and draw database diagram.
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </Col>
-
-          <Col span={12} className="rightSide">
-            <div className="skill">
-              <div className="title">Skills</div>
-
-              <div className="skillHolder">
-                <span>
-                  <span className="bold">Frontend</span>
-                </span>
-                <span> • Experienced with ReactJS.</span>
-                <span> • Global state management with MobX.</span>
-                <span>
-                  • Familar with UI frameworks such as Ant Design and Bootstrap.
-                </span>
-                <span>• Ability to build responsive website.</span>
-
-                <span>• Good understanding of UX design.</span>
-              </div>
-
-              <div className="skillHolder">
-                <span>
-                  <span className="bold">Backend</span>
-                </span>
-                <span>
-                  • Decent knowledge with NodeJS, <br />
-                  especially with framework like NestJS.
-                </span>
-                <span> • Able to build GraphQL and RESTful API.</span>
-                <span> • Familar with MongoDB and PostgreSQL.</span>
-              </div>
-            </div>
-          </Col>
-        </Row>
+            </Col>
+          </Row>
+        </div>
       </div>
-    </div>
-  );
-});
+    );
+  }
+}

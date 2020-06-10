@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink, Link, withRouter } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { APP_CONSTANTS } from "../../../constants";
 
 export default withRouter(function HeaderLinks() {

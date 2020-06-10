@@ -12,7 +12,7 @@ const WebpackBar = require("webpackbar");
 const addPlugins = () => (config) => {
   config.plugins.push(
     new WebpackBar({
-      color: "#faad14",
+      color: "#95b4cc",
       name: "❖",
     })
   );
@@ -35,7 +35,7 @@ module.exports = override(
   addLessLoader({
     javascriptEnabled: true,
     modifyVars: {
-      "primary-color": "#FEC9C9",
+      "primary-color": "#95b4cc",
     },
   }),
   addWebpackAlias({
